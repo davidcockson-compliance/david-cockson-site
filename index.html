@@ -4,46 +4,120 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>david-cockson@cloud:~</title>
+    
     <meta name="description" content="David Cockson | Compliance Architect | Cloud & AI Systems">
+    <meta property="og:title" content="David Cockson | Compliance Architect">
+    <meta property="og:description" content="Mapping the gap. Architecting the control.">
+    <meta property="og:type" content="website">
+
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2280%22 opacity=%220.9%22>🐸</text></svg>">
+
     <style>
         :root {
             --bg-color: #050505;
             --term-bg: rgba(10, 10, 10, 0.82);
             --text-color: #dcdcdc;
-            --prompt-color: #a6e22e;
+            --prompt-color: #a6e22e; /* Frog Green */
             --link-color: #66d9ef;
             --accent-glow: rgba(166, 226, 46, 0.25);
             --glass-border: rgba(255, 255, 255, 0.05);
         }
+
+        /* Custom Selection Color */
         ::selection { background: var(--prompt-color); color: #000; }
-        body, html { margin: 0; padding: 0; height: 100%; background-color: var(--bg-color); color: var(--text-color); font-family: 'Fira Code', monospace; overflow: hidden; display: flex; align-items: center; justify-content: center; }
-        #canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.12; filter: blur(1px); }
-        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), radial-gradient(circle, rgba(0,0,0,0) 60%, rgba(0,0,0,0.5) 100%); background-size: 100% 2px, 100% 100%; pointer-events: none; z-index: 10; }
-        .terminal-container { width: 95%; max-width: 850px; height: 75vh; background: var(--term-bg); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 12px; box-shadow: 0 50px 100px rgba(0,0,0,0.9); display: flex; flex-direction: column; animation: emerge 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
-        .terminal-header { padding: 14px 20px; background: rgba(255, 255, 255, 0.02); display: flex; align-items: center; border-bottom: 1px solid var(--glass-border); }
+
+        body, html {
+            margin: 0; padding: 0; height: 100%;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Fira Code', monospace;
+            overflow: hidden;
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        /* Binary Rain Background */
+        #canvas {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1; opacity: 0.12; filter: blur(1px);
+        }
+
+        /* CRT Overlay with Vignette */
+        .overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: 
+                linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%),
+                radial-gradient(circle, rgba(0,0,0,0) 60%, rgba(0,0,0,0.5) 100%);
+            background-size: 100% 2px, 100% 100%;
+            pointer-events: none; z-index: 10;
+        }
+
+        /* The Main Glass Container with Flicker Animation */
+        .terminal-container {
+            width: 95%; max-width: 850px; height: 75vh;
+            background: var(--term-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            box-shadow: 0 50px 100px rgba(0,0,0,0.9);
+            display: flex; flex-direction: column;
+            animation: emerge 1.2s cubic-bezier(0.16, 1, 0.3, 1), flicker 0.15s infinite;
+            animation-iteration-count: 1, 3; /* Flicker happens 3 times then stops */
+        }
+
+        .terminal-header {
+            padding: 14px 20px;
+            background: rgba(255, 255, 255, 0.02);
+            display: flex; align-items: center;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
         .dots { display: flex; gap: 8px; }
         .dot { width: 11px; height: 11px; border-radius: 50%; opacity: 0.7; }
         .red { background: #ff5f56; } .yellow { background: #ffbd2e; } .green { background: #27c93f; }
         .title { margin-left: 20px; font-size: 11px; color: #555; letter-spacing: 1px; text-transform: uppercase; }
-        .terminal-body { padding: 35px; overflow-y: auto; flex-grow: 1; font-size: 15px; line-height: 1.6; scrollbar-width: none; scroll-behavior: smooth; }
+
+        .terminal-body {
+            padding: 35px; overflow-y: auto; flex-grow: 1; font-size: 15px; line-height: 1.6;
+            scrollbar-width: none; scroll-behavior: smooth;
+        }
+
         .line { margin-bottom: 18px; }
         .prompt { color: var(--prompt-color); text-shadow: 0 0 5px var(--accent-glow); font-weight: 500; }
         .command { color: #fff; text-shadow: 0 0 5px rgba(255,255,255,0.2); }
         .output { color: var(--text-color); margin-top: 6px; display: block; opacity: 0.85; }
+        
         a { color: var(--link-color); text-decoration: none; border-bottom: 1px solid transparent; transition: 0.3s; }
         a:hover { color: #fff; border-bottom: 1px solid var(--link-color); text-shadow: 0 0 8px var(--link-color); }
-        .cursor { display: inline-block; width: 10px; height: 18px; background: var(--prompt-color); margin-left: 5px; animation: blink 1s step-end infinite; vertical-align: middle; box-shadow: 0 0 8px var(--accent-glow); }
+
+        .cursor {
+            display: inline-block; width: 10px; height: 18px;
+            background: var(--prompt-color); margin-left: 5px;
+            animation: blink 1s step-end infinite; vertical-align: middle;
+            box-shadow: 0 0 8px var(--accent-glow);
+        }
+
         pre { margin: 0; font-family: inherit; color: var(--prompt-color); }
+
+        /* Keyframes */
         @keyframes blink { 50% { opacity: 0; } }
         @keyframes emerge { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+        
+        @keyframes flicker {
+            0% { opacity: 0.85; transform: translateX(-1px); filter: brightness(1.2); }
+            50% { opacity: 1; transform: translateX(1px); filter: brightness(1); }
+            100% { opacity: 0.9; transform: translateX(0); filter: brightness(1.1); }
+        }
+
         @media (max-width: 600px) { .terminal-body { padding: 20px; font-size: 13px; } .title { display: none; } }
     </style>
 </head>
 <body>
+
     <canvas id="canvas"></canvas>
     <div class="overlay"></div>
+
     <div class="terminal-container">
         <div class="terminal-header">
             <div class="dots"><div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div></div>
@@ -53,13 +127,19 @@
     </div>
 
     <script>
+        // 1. Binary Rain Logic
         const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
-        canvas.height = window.innerHeight; canvas.width = window.innerWidth;
-        const characters = '01'; const fontSize = 16;
-        const columns = canvas.width / fontSize; const drops = Array(Math.floor(columns)).fill(1);
+        canvas.height = window.innerHeight;
+        canvas.width = window.innerWidth;
+        const characters = '01'; 
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+        const drops = Array(Math.floor(columns)).fill(1);
+
         function drawMatrix() {
-            ctx.fillStyle = 'rgba(5, 5, 5, 0.1)'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = 'rgba(5, 5, 5, 0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
             ctx.font = fontSize + 'px monospace';
             for (let i = 0; i < drops.length; i++) {
                 const text = characters.charAt(Math.floor(Math.random() * characters.length));
@@ -71,6 +151,7 @@
         }
         setInterval(drawMatrix, 60);
 
+        // 2. Typing Logic
         const terminal = document.getElementById('terminal');
         const content = [
             { cmd: "whoami", res: "David Cockson | Compliance Architect | Cloud & AI Systems" },
@@ -83,11 +164,13 @@
             line.className = 'line';
             line.innerHTML = `<span class="prompt">david-cockson@cloud:~$</span> <span class="command"></span>`;
             terminal.appendChild(line);
+            
             const cmdSpan = line.querySelector('.command');
             for (let i = 0; i < item.cmd.length; i++) {
                 cmdSpan.innerHTML += item.cmd[i];
                 await new Promise(r => setTimeout(r, 45));
             }
+
             const res = document.createElement('span');
             res.className = 'output';
             res.innerHTML = item.res;
@@ -96,7 +179,7 @@
         }
 
         async function start() {
-            await new Promise(r => setTimeout(r, 800));
+            await new Promise(r => setTimeout(r, 1000)); // Delay for flicker to finish
             for (const item of content) {
                 await typeLine(item);
                 await new Promise(r => setTimeout(r, 700));
@@ -113,7 +196,7 @@
             terminal.scrollTop = terminal.scrollHeight;
         }
 
-        // The Secret Frog Listener
+        // 3. The Wib Secret Listener
         let inputBuffer = "";
         window.addEventListener("keydown", async (e) => {
             if (e.key.length === 1) {
@@ -124,7 +207,7 @@
                     if(active) active.remove();
                     await typeLine({ 
                         cmd: "cat guardian.log", 
-                        res: `<pre>\n  (o)---(o)\n   ( . . )  [ STATUS: ACTIVE ]\n    \\___/   [ MODE: GUARDIAN ]\n   /     \\\n  |       |  Systems monitored. Partner verified.\n</pre>` 
+                        res: `<pre>\n  (o)---(o)\n   ( . . )  [ STATUS: ACTIVE ]\n    \\___/   [ AUTH: WIB ]\n   /     \\\n  |       |  Systems monitored. Wib verified.\n</pre>` 
                     });
                     addActivePrompt();
                 }
