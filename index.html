@@ -23,12 +23,13 @@
         * {
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            box-sizing: border-box;
         }
 
         ::selection { background: var(--prompt-color); color: #000; }
 
         body, html {
-            margin: 0; padding: 0; height: 100%;
+            margin: 0; padding: 0; height: 100vh; width: 100%;
             background-color: var(--bg-color);
             color: var(--text-color);
             font-family: 'Fira Code', monospace;
@@ -36,7 +37,10 @@
             display: flex; align-items: center; justify-content: center;
         }
 
-        #canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.1; filter: blur(1px); }
+        #canvas { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            z-index: -1; opacity: 0.1; filter: blur(1px); 
+        }
 
         .overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -73,16 +77,38 @@
         .terminal-body {
             padding: 35px; overflow-y: auto; flex-grow: 1; font-size: 15px; line-height: 1.7;
             scrollbar-width: none; scroll-behavior: smooth;
-            padding-bottom: 100px; /* Space for content to breathe */
+            padding-bottom: 60px;
         }
+        .terminal-body::-webkit-scrollbar { display: none; }
 
         .line { margin-bottom: 20px; }
         .prompt { color: var(--prompt-color); text-shadow: 0 0 5px var(--accent-glow); }
         .command { color: #fff; text-shadow: 0 0 8px rgba(255,255,255,0.1); }
         .output { color: var(--text-color); margin-top: 8px; display: block; opacity: 0.8; text-shadow: 0 0 2px rgba(255,255,255,0.05); }
+        .output-multiline { white-space: pre; margin-top: 8px; }
         
         a { color: var(--link-color); text-decoration: none; border-bottom: 1px solid transparent; transition: 0.3s; }
         a:hover { color: #fff; border-bottom: 1px solid var(--link-color); text-shadow: 0 0 10px var(--link-color); }
+
+        /* Blog featured entry — slightly larger, brighter, with a soft glow rule above */
+        .blog-entry {
+            border-top: 1px solid rgba(166, 226, 46, 0.15);
+            margin-top: 4px;
+            padding-top: 6px;
+        }
+        .blog-name {
+            font-size: 1.08em;
+            filter: brightness(1.35);
+        }
+        .blog-url a {
+            color: #a6e22e;
+            text-shadow: 0 0 6px rgba(166, 226, 46, 0.35);
+        }
+        .blog-url a:hover {
+            color: #fff;
+            text-shadow: 0 0 12px #a6e22e;
+        }
+        .blog-tags { filter: brightness(1.2); }
 
         .cursor {
             display: inline-block; width: 10px; height: 18px;
@@ -101,7 +127,10 @@
             100% { opacity: 0.9; filter: brightness(1.2); }
         }
 
-        @media (max-width: 600px) { .terminal-body { padding: 20px; font-size: 13px; } .title { display: none; } }
+        @media (max-width: 600px) { 
+            .terminal-body { padding: 20px; font-size: 13px; } 
+            .title { display: none; } 
+        }
     </style>
 </head>
 <body>
@@ -118,6 +147,7 @@
     </div>
 
     <script>
+        // --- MATRIX BACKGROUND ---
         const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
         canvas.height = window.innerHeight; canvas.width = window.innerWidth;
@@ -137,11 +167,33 @@
         }
         setInterval(drawMatrix, 70);
 
+        // --- TERMINAL CONTENT ---
         const terminal = document.getElementById('terminal');
+
         const content = [
             { cmd: "whoami", res: "David Cockson | Compliance Architect | Cloud & AI Systems" },
             { cmd: "cat philosophy.txt", res: "Tao of Pratchett. Map the gap. Architect the control." },
-            { cmd: "ls -l /links/", res: `blog     -> <a href="https://blog.davidcockson.com" target="_blank" style="color: #a6e22e;">blog.davidcockson.com</a><br>github   -> <a href="https://github.com/davidcockson-compliance" target="_blank">github.com/davidcockson-compliance</a><br>linkedin -> <a href="https://www.linkedin.com/in/david-cockson" target="_blank">linkedin.com/in/david-cockson</a><br>email    -> <a href="mailto:hello@davidcockson.com">hello@davidcockson.com</a>` }
+            { cmd: "ls -l /links/", res: [
+                `blog     -> <a href="https://blog.davidcockson.com" target="_blank">blog.davidcockson.com</a>`,
+                `github   -> <a href="https://github.com/davidcockson-compliance" target="_blank">github.com/davidcockson-compliance</a>`,
+                `linkedin -> <a href="https://www.linkedin.com/in/david-cockson" target="_blank">linkedin.com/in/david-cockson</a>`,
+                `email    -> <a href="mailto:hello@davidcockson.com">hello@davidcockson.com</a>`
+            ]},
+            { cmd: "cat /var/deployments/workloads.yaml", res: [
+                `<span style="color: #f92672;">workloads:</span>`,
+                `  - <span style="color: #66d9ef;">name:</span> <span style="color: #e6db74;">"LCCP Regulation Filter"</span>`,
+                `    <span style="color: #66d9ef;">url:</span>  <a href="https://lccp-filter.davidcockson.com" target="_blank">https://lccp-filter.davidcockson.com</a>`,
+                `    <span style="color: #66d9ef;">tags:</span> [<span style="color: #fd971f;">React</span>, <span style="color: #fd971f;">Vite</span>, <span style="color: #fd971f;">Cloudflare</span>]`,
+                ``,
+                `  - <span style="color: #66d9ef;">name:</span> <span style="color: #e6db74;">"Scarlet Helix"</span>`,
+                `    <span style="color: #66d9ef;">url:</span>  <a href="https://scarlet-helix.davidcockson.com" target="_blank">https://scarlet-helix.davidcockson.com</a>`,
+                `    <span style="color: #66d9ef;">tags:</span> [<span style="color: #fd971f;">Vanilla JS</span>, <span style="color: #fd971f;">Data Pipeline</span>, <span style="color: #fd971f;">Cloudflare</span>]`,
+                ``,
+                // Blog entry — wrapped in spans with classes for visual promotion
+                `  - <span style="color: #66d9ef;">name:</span> <span style="color: #e6db74;">"Blog"</span>`,
+                `    <span style="color: #66d9ef;">url:</span>  <a href="https://blog.davidcockson.com" target="_blank">https://blog.davidcockson.com</a>`,
+                `    <span style="color: #66d9ef;">tags:</span> [<span style="color: #fd971f;">Writing</span>, <span style="color: #fd971f;">Compliance</span>, <span style="color: #fd971f;">Tech</span>]`
+            ]}
         ];
 
         async function typeLine(item) {
@@ -156,11 +208,22 @@
                 await new Promise(r => setTimeout(r, 40));
             }
 
-            const res = document.createElement('span');
-            res.className = 'output';
-            res.innerHTML = item.res;
-            line.appendChild(res);
-            terminal.scrollTo({ top: terminal.scrollHeight, behavior: 'smooth' });
+            const resContainer = document.createElement('div');
+            
+            if (Array.isArray(item.res)) {
+                resContainer.className = 'output output-multiline';
+                line.appendChild(resContainer);
+                for (let j = 0; j < item.res.length; j++) {
+                    resContainer.innerHTML += item.res[j] + '\n';
+                    terminal.scrollTo({ top: terminal.scrollHeight, behavior: 'smooth' });
+                    await new Promise(r => setTimeout(r, 70));
+                }
+            } else {
+                resContainer.className = 'output';
+                resContainer.innerHTML = item.res;
+                line.appendChild(resContainer);
+                terminal.scrollTo({ top: terminal.scrollHeight, behavior: 'smooth' });
+            }
         }
 
         async function start() {
@@ -181,6 +244,7 @@
             terminal.scrollTo({ top: terminal.scrollHeight, behavior: 'smooth' });
         }
 
+        // --- EASTER EGG ---
         let inputBuffer = "";
         window.addEventListener("keydown", async (e) => {
             if (e.key.length === 1) {
@@ -188,10 +252,18 @@
                 if (inputBuffer.includes("frog")) {
                     inputBuffer = "";
                     const active = document.getElementById('active-line');
-                    if(active) active.remove();
+                    if (active) active.remove();
                     await typeLine({ 
                         cmd: "cat guardian.log", 
-                        res: `<pre>\n  (o)---(o)\n   ( . . )  [ STATUS: ACTIVE ]\n    \\___/   [ AUTH: WIB ]\n   /     \\\n  |       |  Systems monitored. Wib verified.\n</pre>` 
+                        res: [
+                            `<pre>`,
+                            `  (o)---(o)`,
+                            `   ( . . )  [ STATUS: ACTIVE ]`,
+                            `    \\___/   [ AUTH: WIB ]`,
+                            `   /     \\`,
+                            `  |       |  Systems monitored. Wib verified.`,
+                            `</pre>`
+                        ]
                     });
                     addActivePrompt();
                 }
@@ -199,7 +271,7 @@
             }
         });
 
-        window.onload = start;
+        document.addEventListener('DOMContentLoaded', start);
         window.onresize = () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; };
     </script>
 </body>
