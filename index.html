@@ -90,7 +90,6 @@
         a { color: var(--link-color); text-decoration: none; border-bottom: 1px solid transparent; transition: 0.3s; }
         a:hover { color: #fff; border-bottom: 1px solid var(--link-color); text-shadow: 0 0 10px var(--link-color); }
 
-        /* Blog featured entry — slightly larger, brighter, with a soft glow rule above */
         .blog-entry {
             border-top: 1px solid rgba(166, 226, 46, 0.15);
             margin-top: 4px;
@@ -174,6 +173,7 @@
             { cmd: "whoami", res: "David Cockson | Compliance Architect | Cloud & AI Systems" },
             { cmd: "cat philosophy.txt", res: "Tao of Pratchett. Map the gap. Architect the control." },
             { cmd: "ls -l /links/", res: [
+                `cv       -> <a href="/cv" target="_blank">davidcockson.com/cv</a>`,
                 `blog     -> <a href="https://blog.davidcockson.com" target="_blank">blog.davidcockson.com</a>`,
                 `github   -> <a href="https://github.com/davidcockson-compliance" target="_blank">github.com/davidcockson-compliance</a>`,
                 `linkedin -> <a href="https://www.linkedin.com/in/david-cockson" target="_blank">linkedin.com/in/david-cockson</a>`,
@@ -189,7 +189,6 @@
                 `    <span style="color: #66d9ef;">url:</span>  <a href="https://scarlet-helix.davidcockson.com" target="_blank">https://scarlet-helix.davidcockson.com</a>`,
                 `    <span style="color: #66d9ef;">tags:</span> [<span style="color: #fd971f;">Vanilla JS</span>, <span style="color: #fd971f;">Data Pipeline</span>, <span style="color: #fd971f;">Cloudflare</span>]`,
                 ``,
-                // Blog entry — wrapped in spans with classes for visual promotion
                 `  - <span style="color: #66d9ef;">name:</span> <span style="color: #e6db74;">"Blog"</span>`,
                 `    <span style="color: #66d9ef;">url:</span>  <a href="https://blog.davidcockson.com" target="_blank">https://blog.davidcockson.com</a>`,
                 `    <span style="color: #66d9ef;">tags:</span> [<span style="color: #fd971f;">Writing</span>, <span style="color: #fd971f;">Compliance</span>, <span style="color: #fd971f;">Tech</span>]`
