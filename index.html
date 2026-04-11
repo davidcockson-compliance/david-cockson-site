@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>david-cockson@cloud:~</title>
     
-    <meta name="description" content="David Cockson | Compliance Architect | Cloud & AI Systems">
+    <meta name="description" content="David Cockson | T-shaped Generalist | Cloud, Infrastructure & AI Systems">
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2280%22 opacity=%220.9%22>🐸</text></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2280%22 fill=%22%23a6e22e%22 font-family=%22monospace%22 font-weight=%22bold%22>>_</text></svg>">
 
     <style>
         :root {
@@ -18,6 +18,9 @@
             --link-color: #66d9ef;
             --accent-glow: rgba(166, 226, 46, 0.2);
             --glass-border: rgba(255, 255, 255, 0.05);
+            --yaml-key: #66d9ef; /* cyan */
+            --yaml-string: #e6db74; /* yellow */
+            --yaml-tags: #fd971f; /* orange */
         }
 
         * {
@@ -90,25 +93,6 @@
         a { color: var(--link-color); text-decoration: none; border-bottom: 1px solid transparent; transition: 0.3s; }
         a:hover { color: #fff; border-bottom: 1px solid var(--link-color); text-shadow: 0 0 10px var(--link-color); }
 
-        .blog-entry {
-            border-top: 1px solid rgba(166, 226, 46, 0.15);
-            margin-top: 4px;
-            padding-top: 6px;
-        }
-        .blog-name {
-            font-size: 1.08em;
-            filter: brightness(1.35);
-        }
-        .blog-url a {
-            color: #a6e22e;
-            text-shadow: 0 0 6px rgba(166, 226, 46, 0.35);
-        }
-        .blog-url a:hover {
-            color: #fff;
-            text-shadow: 0 0 12px #a6e22e;
-        }
-        .blog-tags { filter: brightness(1.2); }
-
         .cursor {
             display: inline-block; width: 10px; height: 18px;
             background: var(--prompt-color); margin-left: 5px;
@@ -166,12 +150,17 @@
         }
         setInterval(drawMatrix, 70);
 
+        const cYAML_KEY = 'style="color: var(--yaml-key);"';
+        const cYAML_STR = 'style="color: var(--yaml-string);"';
+        const cYAML_TAG = 'style="color: var(--yaml-tags);"';
+        const cGITHUB_URL = 'https://github.com/davidcockson-compliance';
+
         // --- TERMINAL CONTENT ---
         const terminal = document.getElementById('terminal');
 
         const content = [
-            { cmd: "whoami", res: "David Cockson | Compliance Architect | Cloud & AI Systems" },
-            { cmd: "cat philosophy.txt", res: "Tao of Pratchett. Map the gap. Architect the control." },
+            { cmd: "whoami", res: "David Cockson | T-shaped Generalist | Cloud, Infrastructure & AI Systems" },
+            { cmd: "cat philosophy.txt", res: "Map the gap. Architect the control." },
             { cmd: "ls -l /links/", res: [
                 `cv       -> <a href="/cv" target="_blank">davidcockson.com/cv</a>`,
                 `blog     -> <a href="https://blog.davidcockson.com" target="_blank">blog.davidcockson.com</a>`,
@@ -181,17 +170,46 @@
             ]},
             { cmd: "cat /var/deployments/workloads.yaml", res: [
                 `<span style="color: #f92672;">workloads:</span>`,
-                `  - <span style="color: #66d9ef;">name:</span> <span style="color: #e6db74;">"LCCP Regulation Filter"</span>`,
-                `    <span style="color: #66d9ef;">url:</span>  <a href="https://lccp-filter.davidcockson.com" target="_blank">https://lccp-filter.davidcockson.com</a>`,
-                `    <span style="color: #66d9ef;">tags:</span> [<span style="color: #fd971f;">React</span>, <span style="color: #fd971f;">Vite</span>, <span style="color: #fd971f;">Cloudflare</span>]`,
+                `  - <span ${cYAML_KEY}>name:</span> <span ${cYAML_STR}>"LCCP Regulation Filter"</span>`,
+                `    <span ${cYAML_KEY}>url:</span>  <a href="https://lccp-filter.davidcockson.com" target="_blank">https://lccp-filter.davidcockson.com</a>`,
+                `    <span ${cYAML_KEY}>tags:</span> [<span ${cYAML_TAG}>React</span>, <span ${cYAML_TAG}>Vite</span>, <span ${cYAML_TAG}>Cloudflare</span>]`,
                 ``,
-                `  - <span style="color: #66d9ef;">name:</span> <span style="color: #e6db74;">"Scarlet Helix"</span>`,
-                `    <span style="color: #66d9ef;">url:</span>  <a href="https://scarlet-helix.davidcockson.com" target="_blank">https://scarlet-helix.davidcockson.com</a>`,
-                `    <span style="color: #66d9ef;">tags:</span> [<span style="color: #fd971f;">Vanilla JS</span>, <span style="color: #fd971f;">Data Pipeline</span>, <span style="color: #fd971f;">Cloudflare</span>]`,
+                `  - <span ${cYAML_KEY}>name:</span> <span ${cYAML_STR}>"Scarlet Helix"</span>`,
+                `    <span ${cYAML_KEY}>url:</span>  <a href="https://scarlet-helix.davidcockson.com" target="_blank">https://scarlet-helix.davidcockson.com</a>`,
+                `    <span ${cYAML_KEY}>tags:</span> [<span ${cYAML_TAG}>Vanilla JS</span>, <span ${cYAML_TAG}>Data Pipeline</span>, <span ${cYAML_TAG}>Cloudflare</span>]`,
                 ``,
-                `  - <span style="color: #66d9ef;">name:</span> <span style="color: #e6db74;">"Blog"</span>`,
-                `    <span style="color: #66d9ef;">url:</span>  <a href="https://blog.davidcockson.com" target="_blank">https://blog.davidcockson.com</a>`,
-                `    <span style="color: #66d9ef;">tags:</span> [<span style="color: #fd971f;">Writing</span>, <span style="color: #fd971f;">Compliance</span>, <span style="color: #fd971f;">Tech</span>]`
+                `  - <span ${cYAML_KEY}>name:</span> <span ${cYAML_STR}>"Blog"</span>`,
+                `    <span ${cYAML_KEY}>url:</span>  <a href="https://blog.davidcockson.com" target="_blank">https://blog.davidcockson.com</a>`,
+                `    <span ${cYAML_KEY}>tags:</span> [<span ${cYAML_TAG}>Writing</span>, <span ${cYAML_TAG}>Compliance</span>, <span ${cYAML_TAG}>Tech</span>]`
+            ]},
+            { cmd: "cat /etc/github/pinned_repos.yaml", res: [
+                `<span style="color: #f92672;">github_pinned_repositories:</span>`,
+                `  - <span ${cYAML_KEY}>repo:</span> <span ${cYAML_STR}>"infra-practice"</span>`,
+                `    <span ${cYAML_KEY}>desc:</span> "Infrastructure as Code practice — Terraform, Python automation, CI/CD"`,
+                `    <span ${cYAML_KEY}>link:</span> <a href="${cGITHUB_URL}/infra-practice" target="_blank">${cGITHUB_URL}/infra-practice</a>`,
+                `    <span ${cYAML_KEY}>lang:</span> [<span ${cYAML_TAG}>HCL</span>]`,
+                ``,
+                `  - <span ${cYAML_KEY}>repo:</span> <span ${cYAML_STR}>"homelab-monitoring"</span>`,
+                `    <span ${cYAML_KEY}>desc:</span> "Prometheus + Grafana monitoring stack for a home server."`,
+                `    <span ${cYAML_KEY}>link:</span> <a href="${cGITHUB_URL}/homelab-monitoring" target="_blank">${cGITHUB_URL}/homelab-monitoring</a>`,
+                ``,
+                `  - <span ${cYAML_KEY}>repo:</span> <span ${cYAML_STR}>"scarlet-helix"</span>`,
+                `    <span ${cYAML_KEY}>desc:</span> "Intelligence tool tracking UK Gambling Commission licenses."`,
+                `    <span ${cYAML_KEY}>link:</span> <a href="${cGITHUB_URL}/scarlet-helix" target="_blank">${cGITHUB_URL}/scarlet-helix</a>`,
+                `    <span ${cYAML_KEY}>lang:</span> [<span ${cYAML_TAG}>JavaScript</span>]`,
+                ``,
+                `  - <span ${cYAML_KEY}>repo:</span> <span ${cYAML_STR}>"lccp-regulation-filter"</span>`,
+                `    <span ${cYAML_KEY}>desc:</span> "LCCP regulation filter with gap analysis built in."`,
+                `    <span ${cYAML_KEY}>link:</span> <a href="${cGITHUB_URL}/lccp-regulation-filter" target="_blank">${cGITHUB_URL}/lccp-regulation-filter</a>`,
+                `    <span ${cYAML_KEY}>lang:</span> [<span ${cYAML_TAG}>JavaScript</span>]`,
+                ``,
+                `  - <span ${cYAML_KEY}>repo:</span> <span ${cYAML_STR}>"pickles-gmbh-ai-governance-framework"</span>`,
+                `    <span ${cYAML_KEY}>desc:</span> "Open-source AI governance framework for German legal AI providers."`,
+                `    <span ${cYAML_KEY}>link:</span> <a href="${cGITHUB_URL}/pickles-gmbh-ai-governance-framework" target="_blank">${cGITHUB_URL}/pickles-gmbh-ai-governance-framework</a>`,
+                ``,
+                `  - <span ${cYAML_KEY}>repo:</span> <span ${cYAML_STR}>"homelab"</span>`,
+                `    <span ${cYAML_KEY}>desc:</span> "Self-hosted infrastructure running on Proxmox and Docker."`,
+                `    <span ${cYAML_KEY}>link:</span> <a href="${cGITHUB_URL}/homelab" target="_blank">${cGITHUB_URL}/homelab</a>`
             ]}
         ];
 
@@ -243,7 +261,6 @@
             terminal.scrollTo({ top: terminal.scrollHeight, behavior: 'smooth' });
         }
 
-        // --- EASTER EGG ---
         let inputBuffer = "";
         window.addEventListener("keydown", async (e) => {
             if (e.key.length === 1) {
