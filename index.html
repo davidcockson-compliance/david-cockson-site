@@ -1,411 +1,294 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CV — David Cockson</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg: #171720; --surface: #1e1f2b; --text: #c9d1d9;
-      --head: #e8ecf1; --muted: #8b949e; --accent: #64d2c8;
-      --border: #333548; --code-bg: #2a2c3d;
-      --mono: 'JetBrains Mono', monospace;
-      --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background: var(--bg); color: var(--text); font-family: var(--sans); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>david-cockson@cloud:~</title>
+    
+    <meta name="description" content="David Cockson | T-shaped Generalist | Cloud, Infrastructure & AI Systems">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2280%22 fill=%22%23a6e22e%22 font-family=%22monospace%22 font-weight=%22bold%22>>_</text></svg>">
 
-    /* ── HEADER ── */
-    .cv-header {
-      position: relative; background: linear-gradient(135deg,#1e1f2b,#262838);
-      padding: 5rem 2rem 4rem; text-align: center; overflow: hidden;
-    }
-    .cv-header::before {
-      content:''; position:absolute; inset:0;
-      background-image: repeating-linear-gradient(0deg,transparent,transparent 39px,var(--border) 39px,var(--border) 40px),
-                        repeating-linear-gradient(90deg,transparent,transparent 39px,var(--border) 39px,var(--border) 40px);
-      opacity:.3;
-    }
-    .cv-header::after { content:''; position:absolute; inset:0; background:linear-gradient(to bottom,rgba(23,23,32,.3) 0%,rgba(23,23,32,.6) 60%,rgba(23,23,32,1) 100%); z-index:1; }
-    .cv-header-content { position:relative; z-index:2; }
-    .cv-header h1 { font-size:2.4rem; font-weight:800; letter-spacing:.15em; text-transform:uppercase; color:#fff; margin-bottom:.4rem; }
-    .cv-header .tagline { font-family:var(--mono); font-size:.85rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); }
+    <style>
+        :root {
+            --bg-color: #050505;
+            --term-bg: rgba(10, 10, 10, 0.85);
+            --text-color: #dcdcdc;
+            --prompt-color: #a6e22e;
+            --link-color: #66d9ef;
+            --accent-glow: rgba(166, 226, 46, 0.2);
+            --glass-border: rgba(255, 255, 255, 0.05);
+            --yaml-key: #66d9ef; /* cyan */
+            --yaml-string: #e6db74; /* yellow */
+            --yaml-tags: #fd971f; /* orange */
+        }
 
-    /* ── LINKS ── */
-    .cv-links { padding:1.5rem 2rem 0; font-family:var(--mono); font-size:.82rem; color:var(--muted); max-width:960px; margin:0 auto; display:flex; flex-direction:column; gap:.3rem; }
-    .cv-links .link-row { display:flex; align-items:baseline; gap:.5rem; }
-    .cv-links a { color:var(--accent); text-decoration:none; }
-    .cv-links .link-desc { color:#b0bac4; font-style:italic; font-family:var(--sans); }
-    .cv-links .tree-child { padding-left:1.2rem; color:var(--muted); }
-    .cv-links .link-spacer { margin-top:.4rem; }
+        * {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            box-sizing: border-box;
+        }
 
-    /* ── BIO ── */
-    .cv-bio { max-width:960px; margin:0 auto; padding:2.5rem 2rem 1.5rem; font-size:1.05rem; text-align:center; border-bottom:1px solid var(--border); }
+        ::selection { background: var(--prompt-color); color: #000; }
 
-    /* ── LAYOUT ── */
-    .cv-layout { display:flex; gap:2.5rem; max-width:960px; margin:0 auto; padding:0 2rem 4rem; }
-    .cv-sidebar { width:210px; flex-shrink:0; padding-top:.5rem; }
-    .cv-content { flex:1; min-width:0; }
+        body, html {
+            margin: 0; padding: 0; height: 100vh; width: 100%;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Fira Code', monospace;
+            overflow: hidden;
+            display: flex; align-items: center; justify-content: center;
+        }
 
-    .sidebar-section-title { font-size:.8rem; font-weight:800; text-transform:uppercase; letter-spacing:.12em; color:var(--head); margin-top:2rem; margin-bottom:.8rem; padding-bottom:.35rem; border-bottom:1px solid var(--border); }
-    .cv-sidebar .sidebar-section-title:first-child { margin-top:0; }
-    .sidebar-list { list-style:none; padding:0; }
-    .sidebar-list li { position:relative; padding-left:1rem; margin-bottom:.5rem; font-size:.82rem; line-height:1.5; }
-    .sidebar-list li::before { content:'›'; position:absolute; left:0; color:var(--accent); font-weight:600; }
-    .sidebar-list .badge-label { font-family:var(--mono); font-size:.75rem; color:var(--accent); display:block; }
-    .sidebar-list .sidebar-dates { display:block; font-family:var(--mono); font-size:.72rem; color:var(--muted); margin-bottom:.15rem; }
-    .sidebar-list strong { color:var(--head); font-size:.84rem; display:block; }
-    .sidebar-compact li { margin-bottom:.2rem; font-size:.8rem; }
+        #canvas { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            z-index: -1; opacity: 0.1; filter: blur(1px); 
+        }
 
-    .cv-section-title { font-size:1.1rem; font-weight:800; text-transform:uppercase; letter-spacing:.12em; color:var(--head); margin-top:3rem; margin-bottom:1.5rem; padding-bottom:.5rem; border-bottom:1px solid var(--border); }
-    .cv-content .cv-section-title:first-child { margin-top:.75rem; margin-bottom:1rem; }
+        .overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: 
+                linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.08) 50%),
+                radial-gradient(circle, rgba(0,0,0,0) 65%, rgba(0,0,0,0.4) 100%);
+            background-size: 100% 2px, 100% 100%;
+            pointer-events: none; z-index: 10;
+        }
 
-    .project { margin-bottom:1rem; padding:.75rem 1.25rem; background:var(--surface); border:1px solid var(--border); border-radius:6px; }
-    .project-title { font-size:1rem; font-weight:700; color:var(--head); margin-bottom:.35rem; }
-    .project ul { list-style:none; padding:0; }
-    .project li { position:relative; padding-left:1.2rem; margin-bottom:.2rem; font-size:.92rem; }
-    .project li::before { content:'›'; position:absolute; left:0; color:var(--accent); font-weight:600; }
-    .project .maps-to { margin-top:.35rem; font-size:.82rem; color:var(--muted); font-family:var(--mono); }
-    .project .maps-to span { color:var(--accent); }
+        .terminal-container {
+            width: 95%; max-width: 850px; height: 75vh;
+            background: var(--term-bg);
+            backdrop-filter: blur(25px);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            box-shadow: 0 50px 100px rgba(0,0,0,0.9), inset 0 0 20px rgba(255,255,255,0.02);
+            display: flex; flex-direction: column;
+            animation: emerge 1.2s cubic-bezier(0.16, 1, 0.3, 1), flicker 0.12s 3;
+        }
 
-    .experience-item { margin-bottom:1.8rem; }
-    .experience-item .role { font-weight:700; color:var(--head); font-size:1rem; }
-    .experience-item .company { color:var(--accent); }
-    .experience-item .dates { font-family:var(--mono); font-size:.8rem; color:var(--muted); margin-bottom:.4rem; }
-    .experience-item ul { list-style:none; padding:0; }
-    .experience-item li { position:relative; padding-left:1.2rem; margin-bottom:.3rem; font-size:.92rem; }
-    .experience-item li::before { content:'›'; position:absolute; left:0; color:var(--accent); font-weight:600; }
+        .terminal-header {
+            padding: 14px 20px;
+            background: rgba(255, 255, 255, 0.02);
+            display: flex; align-items: center;
+            border-bottom: 1px solid var(--glass-border);
+        }
 
-    .earlier-roles-title { font-size:.88rem; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.08em; margin-top:1.5rem; margin-bottom:.8rem; }
-    .earlier-roles-list { list-style:none; padding:0; }
-    .earlier-roles-list li { margin-bottom:.4rem; font-size:.88rem; }
-    .earlier-roles-list strong { color:var(--head); }
-    .dates-inline { font-family:var(--mono); font-size:.75rem; color:var(--muted); margin-left:.3rem; }
-    .role-summary { font-size:.85rem; color:var(--muted); line-height:1.5; margin-top:.2rem; }
+        .dots { display: flex; gap: 8px; }
+        .dot { width: 11px; height: 11px; border-radius: 50%; }
+        .red { background: #ff5f56; } .yellow { background: #ffbd2e; } .green { background: #27c93f; }
+        .title { margin-left: 20px; font-size: 11px; color: #444; letter-spacing: 1.5px; text-transform: uppercase; }
 
-    code { font-family:var(--mono); font-size:.85em; background:var(--code-bg); border:1px solid var(--border); border-radius:3px; padding:.15em .4em; color:var(--accent); }
+        .terminal-body {
+            padding: 35px; overflow-y: auto; flex-grow: 1; font-size: 15px; line-height: 1.7;
+            scrollbar-width: none; scroll-behavior: smooth;
+            padding-bottom: 60px;
+        }
+        .terminal-body::-webkit-scrollbar { display: none; }
 
-    .cv-footer { text-align:center; padding:2rem; font-size:.8rem; color:var(--muted); border-top:1px solid var(--border); max-width:960px; margin:0 auto; }
-    .cv-footer a { color:var(--accent); text-decoration:none; }
+        .line { margin-bottom: 20px; }
+        .prompt { color: var(--prompt-color); text-shadow: 0 0 5px var(--accent-glow); }
+        .command { color: #fff; text-shadow: 0 0 8px rgba(255,255,255,0.1); }
+        .output { color: var(--text-color); margin-top: 8px; display: block; opacity: 0.8; text-shadow: 0 0 2px rgba(255,255,255,0.05); }
+        .output-multiline { white-space: pre; margin-top: 8px; }
+        
+        a { color: var(--link-color); text-decoration: none; border-bottom: 1px solid transparent; transition: 0.3s; }
+        a:hover { color: #fff; border-bottom: 1px solid var(--link-color); text-shadow: 0 0 10px var(--link-color); }
 
-    /* ── BUTTON ── */
-    .pdf-btn-wrap { position:fixed; bottom:1.5rem; right:1.5rem; z-index:100; }
-    #pdf-btn { display:flex; align-items:center; gap:.5rem; background:var(--accent); color:#171720; border:none; border-radius:6px; padding:.65rem 1.1rem; font-family:var(--mono); font-size:.8rem; font-weight:600; letter-spacing:.05em; cursor:pointer; box-shadow:0 4px 16px rgba(100,210,200,.25); transition:background .15s,transform .1s; }
-    #pdf-btn:hover { background:#7dddd5; transform:translateY(-1px); }
+        .cursor {
+            display: inline-block; width: 10px; height: 18px;
+            background: var(--prompt-color); margin-left: 5px;
+            animation: blink 1s step-end infinite; vertical-align: middle;
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
 
-    @media (max-width:720px) {
-      .cv-layout { flex-direction:column; padding:0 1.25rem 3rem; }
-      .cv-sidebar { width:100%; border-bottom:1px solid var(--border); padding-bottom:1.5rem; margin-bottom:1.5rem; }
-    }
+        pre { margin: 0; font-family: inherit; color: var(--prompt-color); filter: drop-shadow(0 0 5px var(--accent-glow)); }
 
-    /* ══════════════════════════════════════════════
-       PRINT / PDF STYLES
-       ══════════════════════════════════════════════ */
-    @media print {
-      @page {
-        size: A4;
-        margin: 14mm 16mm 14mm 16mm;
-      }
+        @keyframes blink { 50% { opacity: 0; } }
+        @keyframes emerge { from { opacity: 0; transform: translateY(30px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+        @keyframes flicker {
+            0% { opacity: 0.9; filter: brightness(1.3); transform: scaleX(1.01); }
+            50% { opacity: 1; filter: brightness(1); transform: scaleX(1); }
+            100% { opacity: 0.9; filter: brightness(1.2); }
+        }
 
-      *, *::before, *::after { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-
-      body { background: #fff; color: #1a1a1a; font-size: 9.5pt; line-height: 1.5; }
-
-      .pdf-btn-wrap { display: none !important; }
-
-      /* Header — compact, no decorative grid */
-      .cv-header {
-        background: #1e1f2b !important;
-        padding: 1.8rem 1.5rem 1.4rem;
-      }
-      .cv-header::before { display: none; }
-      .cv-header::after { display: none; }
-      .cv-header h1 { font-size: 18pt; color: #fff; }
-      .cv-header .tagline { font-size: 7.5pt; color: #aaa; }
-
-      /* Links — inline row for print */
-      .cv-links {
-        padding: .6rem 0 0;
-        font-size: 7.5pt;
-        flex-direction: row;
-        flex-wrap: wrap;
-        gap: .2rem .8rem;
-      }
-      .cv-links .tree-child { display: none; }
-      .cv-links .link-spacer { margin-top: 0; }
-      .cv-links .link-desc { display: none; }
-      .cv-links a { color: #1a1a1a; text-decoration: underline; }
-
-      /* Bio */
-      .cv-bio {
-        padding: .8rem 0 .6rem;
-        font-size: 9.5pt;
-        border-bottom: 1px solid #ccc;
-      }
-
-      /* Layout */
-      .cv-layout { gap: 1.5rem; padding: 0 0 1rem; }
-      .cv-sidebar { width: 170px; }
-
-      /* Sidebar */
-      .sidebar-section-title {
-        color: #1a1a1a;
-        border-bottom-color: #ccc;
-        font-size: 7pt;
-        margin-top: 1rem;
-        margin-bottom: .4rem;
-      }
-      .sidebar-list li { font-size: 7.5pt; margin-bottom: .25rem; color: #333; }
-      .sidebar-list li::before { color: #555; }
-      .sidebar-list .badge-label { color: #555; font-size: 6.5pt; }
-      .sidebar-list .sidebar-dates { color: #666; font-size: 6.5pt; }
-      .sidebar-list strong { color: #1a1a1a; font-size: 7.5pt; }
-      .sidebar-compact li { font-size: 7pt; margin-bottom: .1rem; }
-
-      /* Section titles */
-      .cv-section-title {
-        color: #1a1a1a;
-        border-bottom-color: #ccc;
-        font-size: 10pt;
-        margin-top: 1.2rem;
-        margin-bottom: .6rem;
-      }
-      .cv-content .cv-section-title:first-child { margin-top: .3rem; }
-
-      /* Projects */
-      .project {
-        background: #f8f8f8;
-        border-color: #ddd;
-        padding: .5rem .8rem;
-        margin-bottom: .6rem;
-        page-break-inside: avoid;
-        break-inside: avoid;
-      }
-      .project-title { color: #1a1a1a; font-size: 9.5pt; }
-      .project li { font-size: 8.5pt; color: #333; }
-      .project li::before { color: #555; }
-      .project .maps-to { font-size: 7pt; color: #777; }
-      .project .maps-to span { color: #555; }
-
-      /* Experience */
-      .experience-item {
-        margin-bottom: 1rem;
-        page-break-inside: avoid;
-        break-inside: avoid;
-      }
-      .experience-item .role { color: #1a1a1a; font-size: 9.5pt; }
-      .experience-item .company { color: #333; }
-      .experience-item .dates { color: #666; font-size: 7.5pt; }
-      .experience-item li { font-size: 8.5pt; color: #333; }
-      .experience-item li::before { color: #555; }
-
-      /* Earlier roles */
-      .earlier-roles-title { color: #555; font-size: 8pt; }
-      .earlier-roles-list li { font-size: 8pt; }
-      .earlier-roles-list strong { color: #1a1a1a; }
-      .dates-inline { color: #666; font-size: 7pt; }
-      .role-summary { color: #555; font-size: 7.5pt; }
-
-      code {
-        background: #eee;
-        border-color: #ccc;
-        color: #333;
-      }
-
-      /* Footer */
-      .cv-footer {
-        border-top-color: #ccc;
-        font-size: 7pt;
-        padding: .8rem 0;
-      }
-      .cv-footer a { color: #1a1a1a; }
-
-      /* Prevent orphan sections */
-      .cv-section-title {
-        page-break-after: avoid;
-        break-after: avoid;
-      }
-      .earlier-roles-title {
-        page-break-after: avoid;
-        break-after: avoid;
-      }
-    }
-  </style>
+        @media (max-width: 600px) { 
+            .terminal-body { padding: 20px; font-size: 13px; } 
+            .title { display: none; } 
+        }
+    </style>
 </head>
 <body>
 
-  <div class="pdf-btn-wrap">
-    <button id="pdf-btn" onclick="window.print()">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-        <polyline points="7 10 12 15 17 10"/>
-        <line x1="12" y1="15" x2="12" y2="3"/>
-      </svg>
-      Save as PDF
-    </button>
-  </div>
+    <canvas id="canvas"></canvas>
+    <div class="overlay"></div>
 
-  <header class="cv-header">
-    <div class="cv-header-content">
-      <h1>David Cockson</h1>
-      <p class="tagline">Hope is not a strategy.</p>
+    <div class="terminal-container">
+        <div class="terminal-header">
+            <div class="dots"><div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div></div>
+            <div class="title">david@cockson-cloud: ~ (ssh)</div>
+        </div>
+        <div class="terminal-body" id="terminal"></div>
     </div>
-  </header>
 
-  <nav class="cv-links">
-    <div class="link-row"><a href="https://davidcockson.com">davidcockson.com</a></div>
-    <div class="link-row tree-child">├── <a href="https://blog.davidcockson.com">blog.davidcockson.com</a> <span class="link-desc">— technical blog</span></div>
-    <div class="link-row tree-child">├── <a href="https://lccp-filter.davidcockson.com/">lccp-filter.davidcockson.com</a> <span class="link-desc">— UKGC regulation filter tool</span></div>
-    <div class="link-row tree-child">└── <a href="https://scarlet-helix.davidcockson.com/">scarlet-helix.davidcockson.com</a> <span class="link-desc">— UKGC licence CSV filter</span></div>
-    <div class="link-row link-spacer"><a href="https://github.com/davidcockson-compliance">github.com/davidcockson-compliance</a></div>
-    <div class="link-row"><a href="https://www.linkedin.com/in/david-cockson">linkedin.com/in/david-cockson</a></div>
-  </nav>
+    <script>
+        // --- MATRIX BACKGROUND ---
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.height = window.innerHeight; canvas.width = window.innerWidth;
+        const characters = '01'; const fontSize = 16;
+        const columns = canvas.width / fontSize; const drops = Array(Math.floor(columns)).fill(1);
 
-  <div class="cv-bio">
-    Systems thinker. Finding constraints and designing controls. 8 years analysing complex regulatory systems | T-shaped Generalist | Cloud, Infrastructure &amp; AI Systems.
-  </div>
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(5, 5, 5, 0.15)'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.font = fontSize + 'px monospace';
+            for (let i = 0; i < drops.length; i++) {
+                const text = characters.charAt(Math.floor(Math.random() * characters.length));
+                ctx.fillStyle = Math.random() > 0.97 ? '#151515' : '#080808';
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.98) drops[i] = 0;
+                drops[i]++;
+            }
+        }
+        setInterval(drawMatrix, 70);
 
-  <div class="cv-layout">
-    <aside class="cv-sidebar">
-      <h3 class="sidebar-section-title">Google Cloud</h3>
-      <ul class="sidebar-list">
-        <li><span class="badge-label">GCP Skills Boost</span> Terraform</li>
-        <li><span class="badge-label">GCP Skills Boost</span> Kubernetes</li>
-        <li><span class="badge-label">GCP Skills Boost</span> Set Up a Google Cloud Network</li>
-        <li><span class="badge-label">Google</span> Fundamentals of Digital Marketing</li>
-        <li><span class="badge-label">Google</span> ADK Crash Course — Agent Development Kit</li>
-      </ul>
-      <h3 class="sidebar-section-title">Industry Qualifications</h3>
-      <ul class="sidebar-list">
-        <li>ICA Advanced Certificate in Regulatory Compliance</li>
-        <li>ICA Specialist Certificate in Money Laundering Risk in Betting and Gaming</li>
-        <li>Award in iGaming — MQF Level 4</li>
-      </ul>
-      <h3 class="sidebar-section-title">Education</h3>
-      <ul class="sidebar-list">
-        <li><strong>University of Huddersfield</strong><span class="sidebar-dates">2010–2013</span>Diploma in Law — tutoring, student representative, mooting society</li>
-        <li><strong>Manchester Metropolitan University</strong><span class="sidebar-dates">2002–2005</span>Certificate of Education, Dept of Economics — student representative</li>
-      </ul>
-      <h3 class="sidebar-section-title">Training</h3>
-      <ul class="sidebar-list sidebar-compact">
-        <li>Anti-Money Laundering &amp; CTF</li><li>Anti-Bribery</li><li>Anti-Fraud &amp; Payments Handling</li><li>GDPR</li><li>LCCP</li><li>Remote Gambling — CMA Guide</li><li>Responsible Gaming</li><li>Swedish Regulatory Framework</li><li>CAP Responsible Ads: Gambling</li><li>ICC Ethical Marketing &amp; Advertising</li><li>Introduction to Blockchain</li><li>LivingWorks safeTALK</li><li>GamCare Motivational Interviewing</li><li>Betway LEAP Management Training</li>
-      </ul>
-      <h3 class="sidebar-section-title">Community</h3>
-      <ul class="sidebar-list">
-        <li>Manchester tech meetups (Bet365, AI Data Hive/Matillion, Grafana/Autotrader)</li>
-        <li>GFSC volunteer contributor (governance framework, distributed ops)</li>
-      </ul>
-      <h3 class="sidebar-section-title">Other</h3>
-      <ul class="sidebar-list">
-        <li>Homelab: Proxmox host, 20+ Docker containers, Tailscale mesh</li>
-        <li>Photography (Darktable)</li>
-      </ul>
-    </aside>
+        const cYAML_KEY = 'style="color: var(--yaml-key);"';
+        const cYAML_STR = 'style="color: var(--yaml-string);"';
+        const cYAML_TAG = 'style="color: var(--yaml-tags);"';
+        const cGITHUB_URL = 'https://github.com/davidcockson-compliance';
 
-    <main class="cv-content">
-      <h2 class="cv-section-title">Technical Projects</h2>
-      <div class="project"><h3 class="project-title">Monitoring &amp; Observability</h3><ul><li>Full stack: Telegraf → Prometheus → Grafana across homelab and Contabo VPS</li><li>Diagnosed silent cAdvisor failure (cgroup v2 + non-standard Docker root), pivoted to Telegraf Docker socket API</li><li>Published Grafana community dashboard (ID 25012)</li><li>Grafana Cloud setup (free tier, eu-west-2)</li><li>Multi-cloud monitoring: Prometheus + Node Exporter + Grafana deployed to Contabo VPS (Ubuntu 24.04, Germany)</li></ul><p class="maps-to"><span>maps to →</span> monitoring, observability, Prometheus, Grafana, incident diagnosis, multi-cloud</p></div>
-      <div class="project"><h3 class="project-title">Linux &amp; Containerisation</h3><ul><li>Proxmox hypervisor running Ubuntu VM with 20+ Docker containers</li><li>Services: Plex, Immich, Gitea, SearXNG, Nginx Proxy Manager, Portainer, Syncthing, and others</li><li>Multi-stage Docker builds (Node/Vite → nginx:alpine) for project deployments</li><li>systemd service authoring (Tailscale metrics proxy — Python HTTP proxy exposing client metrics to Prometheus)</li><li>Linux Mint as primary dev environment</li></ul><p class="maps-to"><span>maps to →</span> Linux, Docker, containerisation, virtualisation, systemd, process management</p></div>
-      <div class="project"><h3 class="project-title">Cloud Infrastructure</h3><ul><li>AWS: self-taught runbook methodology through 23 reps — click-ops → CLI → scripted automation → self-healing fleet (3 EC2 instances)</li><li>LCCP Regulation Filter deployed to EC2 (multi-stage Docker build: Node/Vite → nginx:alpine)</li><li>Contabo VPS: self-hosted AI stack (Ollama Qwen2.5 14B, Prometheus, Grafana, Syncthing) on Ubuntu 24.04, accessible via Tailscale mesh</li><li>Multi-provider experience: AWS, Contabo, Cloudflare, GCP Skills Boost</li></ul><p class="maps-to"><span>maps to →</span> AWS, EC2, CLI, multi-cloud, VPS management, cloud infrastructure</p></div>
-      <div class="project"><h3 class="project-title">Python Development</h3><ul><li>Code kata system: self-designed, multi-domain reps (AWS, Linux, networking) — same 7 concepts applied across 3 contexts per rep</li><li>ARN decoder script — committed to public repo</li><li>Discord server with 3 webhooks configured as alerting channel for monitoring stack</li><li>Scripting across homelab and cloud automation tasks</li><li>Google ADK (Agent Development Kit) crash course completed — AI agent framework</li></ul><p class="maps-to"><span>maps to →</span> Python, scripting, automation, webhooks, ChatOps, AI agents</p></div>
-      <div class="project"><h3 class="project-title">Terraform &amp; IaC</h3><ul><li>Runbook self-learning methodology: 4 reps completed, committed to pinned infra-practice repo</li><li>Progression: single EC2 → User Data + IAM + CloudWatch → ALB + HTTPS → full production stack (ASG + Launch Template) in a single <code>terraform apply</code></li><li>GCP Skills Boost badges (Terraform, Kubernetes, Google Cloud Network)</li></ul><p class="maps-to"><span>maps to →</span> Terraform, IaC, HCL, ALB, ASG, GCP exposure</p></div>
-      <div class="project"><h3 class="project-title">Networking &amp; Access Control</h3><ul><li>Tailscale mesh networking across homelab, laptop, phone, and Contabo VPS</li><li>Nginx Proxy Manager as reverse proxy for all services</li><li>DNS management across multiple custom domains (Cloudflare)</li><li>Labelled physical network infrastructure with structured cabling and surge protection</li><li>Tailscale metrics proxy: custom Python service exposing network metrics to Prometheus</li></ul><p class="maps-to"><span>maps to →</span> networking, DNS, reverse proxy, VPN/zero-trust, infrastructure documentation</p></div>
-      <div class="project"><h3 class="project-title">CI/CD &amp; Deployment Pipelines</h3><ul><li>Blog (Hugo): GitHub Actions → Cloudflare</li><li>Personal site: GitHub Actions deploy pipeline</li><li>Scarlet Helix: GitHub Actions → Cloudflare Workers</li><li>All projects use custom domains with DNS management</li></ul><p class="maps-to"><span>maps to →</span> CI/CD, GitHub Actions, deployment automation, DNS, Cloudflare</p></div>
+        // --- TERMINAL CONTENT ---
+        const terminal = document.getElementById('terminal');
 
-      <div class="project"><h3 class="project-title">Volunteer — Geeks for Social Change (GFSC)</h3><ul><li>Infrastructure discovery: mapped an undocumented, distributed legacy server estate across Hetzner, Co-op Cloud, and Digital Ocean</li><li>Drafted initial observability strategy (Uptime Kuma → Node Exporter → Grafana Cloud) collaboratively in HedgeDoc</li><li>Iterated infrastructure review based on community maintainer feedback</li><li>First external contribution: committed final technical proposals and system documentation to the organisation's public GitHub repo</li></ul><p class="maps-to"><span>maps to →</span> infrastructure mapping, Git collaboration, technical documentation, systems discovery, open-source community</p></div>
+        const content = [
+            { cmd: "whoami", res: "David Cockson | T-shaped Generalist | Cloud, Infrastructure & AI Systems" },
+            { cmd: "cat philosophy.txt", res: "Map the gap. Architect the control." },
+            { cmd: "ls -l /links/", res: [
+                `cv       -> <a href="/cv" target="_blank">davidcockson.com/cv</a>`,
+                `blog     -> <a href="https://blog.davidcockson.com" target="_blank">blog.davidcockson.com</a>`,
+                `github   -> <a href="https://github.com/davidcockson-compliance" target="_blank">github.com/davidcockson-compliance</a>`,
+                `linkedin -> <a href="https://www.linkedin.com/in/david-cockson" target="_blank">linkedin.com/in/david-cockson</a>`,
+                `email    -> <a href="mailto:hello@davidcockson.com">hello@davidcockson.com</a>`
+            ]},
+            { cmd: "cat /var/deployments/workloads.yaml", res: [
+                `<span style="color: #f92672;">workloads:</span>`,
+                `  - <span ${cYAML_KEY}>name:</span> <span ${cYAML_STR}>"LCCP Regulation Filter"</span>`,
+                `    <span ${cYAML_KEY}>url:</span>  <a href="https://lccp-filter.davidcockson.com" target="_blank">https://lccp-filter.davidcockson.com</a>`,
+                `    <span ${cYAML_KEY}>tags:</span> [<span ${cYAML_TAG}>React</span>, <span ${cYAML_TAG}>Vite</span>, <span ${cYAML_TAG}>Cloudflare</span>]`,
+                ``,
+                `  - <span ${cYAML_KEY}>name:</span> <span ${cYAML_STR}>"Scarlet Helix"</span>`,
+                `    <span ${cYAML_KEY}>url:</span>  <a href="https://scarlet-helix.davidcockson.com" target="_blank">https://scarlet-helix.davidcockson.com</a>`,
+                `    <span ${cYAML_KEY}>tags:</span> [<span ${cYAML_TAG}>Vanilla JS</span>, <span ${cYAML_TAG}>Data Pipeline</span>, <span ${cYAML_TAG}>Cloudflare</span>]`,
+                ``,
+                `  - <span ${cYAML_KEY}>name:</span> <span ${cYAML_STR}>"Blog"</span>`,
+                `    <span ${cYAML_KEY}>url:</span>  <a href="https://blog.davidcockson.com" target="_blank">https://blog.davidcockson.com</a>`,
+                `    <span ${cYAML_KEY}>tags:</span> [<span ${cYAML_TAG}>Writing</span>, <span ${cYAML_TAG}>Compliance</span>, <span ${cYAML_TAG}>Tech</span>]`
+            ]},
+            { cmd: "cat /etc/github/pinned_repos.yaml", res: [
+                `<span style="color: #f92672;">github_pinned_repositories:</span>`,
+                `  - <span ${cYAML_KEY}>repo:</span> <span ${cYAML_STR}>"infra-practice"</span>`,
+                `    <span ${cYAML_KEY}>desc:</span> "Infrastructure as Code practice — Terraform, Python automation, CI/CD"`,
+                `    <span ${cYAML_KEY}>link:</span> <a href="${cGITHUB_URL}/infra-practice" target="_blank">${cGITHUB_URL}/infra-practice</a>`,
+                `    <span ${cYAML_KEY}>lang:</span> [<span ${cYAML_TAG}>HCL</span>]`,
+                ``,
+                `  - <span ${cYAML_KEY}>repo:</span> <span ${cYAML_STR}>"homelab-monitoring"</span>`,
+                `    <span ${cYAML_KEY}>desc:</span> "Prometheus + Grafana monitoring stack for a home server."`,
+                `    <span ${cYAML_KEY}>link:</span> <a href="${cGITHUB_URL}/homelab-monitoring" target="_blank">${cGITHUB_URL}/homelab-monitoring</a>`,
+                ``,
+                `  - <span ${cYAML_KEY}>repo:</span> <span ${cYAML_STR}>"scarlet-helix"</span>`,
+                `    <span ${cYAML_KEY}>desc:</span> "Intelligence tool tracking UK Gambling Commission licenses."`,
+                `    <span ${cYAML_KEY}>link:</span> <a href="${cGITHUB_URL}/scarlet-helix" target="_blank">${cGITHUB_URL}/scarlet-helix</a>`,
+                `    <span ${cYAML_KEY}>lang:</span> [<span ${cYAML_TAG}>JavaScript</span>]`,
+                ``,
+                `  - <span ${cYAML_KEY}>repo:</span> <span ${cYAML_STR}>"lccp-regulation-filter"</span>`,
+                `    <span ${cYAML_KEY}>desc:</span> "LCCP regulation filter with gap analysis built in."`,
+                `    <span ${cYAML_KEY}>link:</span> <a href="${cGITHUB_URL}/lccp-regulation-filter" target="_blank">${cGITHUB_URL}/lccp-regulation-filter</a>`,
+                `    <span ${cYAML_KEY}>lang:</span> [<span ${cYAML_TAG}>JavaScript</span>]`,
+                ``,
+                `  - <span ${cYAML_KEY}>repo:</span> <span ${cYAML_STR}>"pickles-gmbh-ai-governance-framework"</span>`,
+                `    <span ${cYAML_KEY}>desc:</span> "Open-source AI governance framework for German legal AI providers."`,
+                `    <span ${cYAML_KEY}>link:</span> <a href="${cGITHUB_URL}/pickles-gmbh-ai-governance-framework" target="_blank">${cGITHUB_URL}/pickles-gmbh-ai-governance-framework</a>`,
+                ``,
+                `  - <span ${cYAML_KEY}>repo:</span> <span ${cYAML_STR}>"homelab"</span>`,
+                `    <span ${cYAML_KEY}>desc:</span> "Self-hosted infrastructure running on Proxmox and Docker."`,
+                `    <span ${cYAML_KEY}>link:</span> <a href="${cGITHUB_URL}/homelab" target="_blank">${cGITHUB_URL}/homelab</a>`
+            ]}
+        ];
 
-      <h2 class="cv-section-title">Professional Experience</h2>
-      <div class="experience-item"><p class="role">Compliance Manager — <span class="company">Gambling Commission of Great Britain</span></p><p class="dates">July 2024 – Present</p><ul><li>Assessment of regulated gambling companies including casinos, betting shops, bingo, AGCs (in-person) and remote casinos, sportsbooks, bingo and B2B software development companies (online)</li><li>Led all 2025 Software Development Licence assessments, including ISO 27001 reviews, Change Management evaluations, policy and procedure assessments, and governance interviews with C-level executives (CTO/CEO), Heads of Departments and SMEs</li><li>Directed multiple successful regulatory actions in response to event-driven work based on incident reports; leading and advising on assessments triggered by sensitive whistleblowing and intelligence reports</li><li>Support Policy teams on technical projects and reactive workstreams, managing high-stakes intelligence and whistleblower disclosures</li><li>Utilise Microsoft Copilot, SharePoint and proprietary software to streamline regulatory reporting and maintain audit trails for complex assessment workflows</li></ul></div>
-      <div class="experience-item"><p class="role">Regulatory Compliance Assurance Manager — <span class="company">William Hill (888 Holdings)</span></p><p class="dates">May 2023 – December 2023</p><ul><li>Recruited, trained and directed an Assurance team across Marketing Compliance, Technical Compliance and VIP/HVC schemes for 3 business units (UK &amp; Ireland, International, US) spanning 22 regulated markets</li><li>Established procedural frameworks and authored the Risk Matrix for the Group Assurance department; planned and executed all non-AML and SG assurance testing for 2023</li><li>Coordinated operations for a 5-person international data and monitoring team and a 19-person testing team (Manila), providing task allocation and performance feedback</li><li>Integrated Assurance into group regulatory and controls mapping with external entities including KPMG; authored the framework and supported delivery of RTS testing framework automation and the GB annual assurance statement</li><li>Developed and delivered specialist training (Assurance Testing, GB Regulatory Actions, 3rd Party Risk Analysis, Marketing Compliance)</li></ul></div>
-      <div class="experience-item"><p class="role">Compliance Officer — <span class="company">Allwyn UK (National Lottery)</span></p><p class="dates">September 2022 – March 2023</p><ul><li>Created Business Requirement Documents (BRDs) and provided compliance reviews for commercial and operations teams, including workshops with the outgoing licensee</li><li>Led the design and build of the Compliance Monitoring Programme and control registers</li><li>Advised Marketing, Retail and Product Development teams on technical implementation and regulatory alignment as a Subject Matter Expert</li><li>Managed high-stakes relationships with Scientific Games and coordinated international Net Zero initiatives</li><li>Led a joint Machine Learning development project with Oxford University, overseeing the bridge between academic research and commercial application</li></ul></div>
+        async function typeLine(item) {
+            const line = document.createElement('div');
+            line.className = 'line';
+            line.innerHTML = `<span class="prompt">david-cockson@cloud:~$</span> <span class="command"></span>`;
+            terminal.appendChild(line);
+            
+            const cmdSpan = line.querySelector('.command');
+            for (let i = 0; i < item.cmd.length; i++) {
+                cmdSpan.innerHTML += item.cmd[i];
+                await new Promise(r => setTimeout(r, 40));
+            }
 
-      <h3 class="earlier-roles-title">Previous Roles</h3>
-      <ul class="earlier-roles-list">
-        <li><strong>Regional Regulatory Compliance Manager</strong> — Betway Group <span class="dates-inline">Nov 2021 – Apr 2022</span><br><span class="role-summary">Managed 4 Compliance Managers across MGA, Belgium, Germany and NL. Built risk register, compliance monitoring, board reporting. Recruited and trained new staff.</span></li>
-        <li><strong>Marketing Compliance Analyst</strong> — Pokerstars (Flutter International) <span class="dates-inline">Nov 2020 – Jul 2021</span><br><span class="role-summary">Marketing compliance across 15+ regulated markets, 3 gaming verticals. Created guidance, training and regulatory risk matrices.</span></li>
-        <li><strong>Compliance Officer</strong> — Genesis Global Limited <span class="dates-inline">Dec 2018 – Nov 2020</span><br><span class="role-summary">Licence applications, casino launches, compliance monitoring development, gap analysis, regulatory reporting automation. Previously Risk, Payment &amp; Fraud Analyst.</span></li>
-        <li><strong>Legal &amp; Compliance Officer</strong> — PlayAttack Affiliates <span class="dates-inline">Jul – Sep 2021</span><br><span class="role-summary">Marketing compliance across Sweden, MGA and Romania. Affiliate monitoring, licence applications, UKGC onboarding.</span></li>
-        <li><strong>Case Handler</strong> — HSBC (PPI &amp; PBA Departments) <span class="dates-inline">Aug 2013 – Aug 2017</span><br><span class="role-summary">Complaint investigation, documentation review across proprietary systems, procedure improvement, colleague training.</span></li>
-      </ul>
-    </main>
-  </div>
-
-  <footer class="cv-footer">
-    <a href="https://davidcockson.com">davidcockson.com</a> · <a href="https://blog.davidcockson.com">blog.davidcockson.com</a> · <a href="https://github.com/davidcockson-compliance">github</a> · <a href="https://www.linkedin.com/in/david-cockson">linkedin</a>
-  </footer>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script>
-    async function downloadPDF() {
-      if (typeof html2canvas === 'undefined' || typeof window.jspdf === 'undefined') {
-        window.print();
-        return;
-      }
-      const btn = document.getElementById('pdf-btn');
-      const btnWrap = btn.closest('.pdf-btn-wrap');
-      btn.disabled = true;
-      btn.textContent = 'Rendering…';
-      btnWrap.style.display = 'none';
-      await new Promise(r => setTimeout(r, 150));
-
-      try {
-        const renderWidth = 960;
-        const scaleFactor = 2;
-        const canvas = await html2canvas(document.body, {
-          scale: scaleFactor,
-          useCORS: true,
-          backgroundColor: '#171720',
-          logging: false,
-          scrollX: 0,
-          scrollY: 0,
-          windowWidth: renderWidth,
-          width: renderWidth,
-          height: document.body.scrollHeight,
-          windowHeight: document.body.scrollHeight
-        });
-
-        btn.textContent = 'Building PDF…';
-
-        const { jsPDF } = window.jspdf;
-        const pageW = 210;
-        const pageH = 297;
-        const pxPerMm = (renderWidth * scaleFactor) / pageW;
-        const imgW = canvas.width;
-        const imgH = canvas.height;
-        const pdfImgW = pageW;
-        const pdfImgH = (imgH / pxPerMm);
-        const totalPages = Math.ceil(pdfImgH / pageH);
-
-        const pdf = new jsPDF({ unit: 'mm', format: 'a4', orientation: 'portrait' });
-
-        for (let i = 0; i < totalPages; i++) {
-          if (i > 0) pdf.addPage();
-          const srcY = i * pageH * pxPerMm;
-          const sliceH = Math.min(pageH * pxPerMm, imgH - srcY);
-          const sliceCanvas = document.createElement('canvas');
-          sliceCanvas.width = imgW;
-          sliceCanvas.height = sliceH;
-          const ctx = sliceCanvas.getContext('2d');
-          ctx.drawImage(canvas, 0, srcY, imgW, sliceH, 0, 0, imgW, sliceH);
-          const sliceData = sliceCanvas.toDataURL('image/jpeg', 0.92);
-          const slicePageH = sliceH / pxPerMm;
-          pdf.addImage(sliceData, 'JPEG', 0, 0, pdfImgW, slicePageH);
+            const resContainer = document.createElement('div');
+            
+            if (Array.isArray(item.res)) {
+                resContainer.className = 'output output-multiline';
+                line.appendChild(resContainer);
+                for (let j = 0; j < item.res.length; j++) {
+                    resContainer.innerHTML += item.res[j] + '\n';
+                    terminal.scrollTo({ top: terminal.scrollHeight, behavior: 'smooth' });
+                    await new Promise(r => setTimeout(r, 70));
+                }
+            } else {
+                resContainer.className = 'output';
+                resContainer.innerHTML = item.res;
+                line.appendChild(resContainer);
+                terminal.scrollTo({ top: terminal.scrollHeight, behavior: 'smooth' });
+            }
         }
 
-        pdf.save('david-cockson-cv.pdf');
-      } catch (e) {
-        alert('PDF error: ' + e.message);
-      }
+        async function start() {
+            await new Promise(r => setTimeout(r, 1200));
+            for (const item of content) {
+                await typeLine(item);
+                await new Promise(r => setTimeout(r, 600));
+            }
+            addActivePrompt();
+        }
 
-      btnWrap.style.display = 'block';
-      btn.disabled = false;
-      btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Save as PDF`;
-    }
-  </script>
+        function addActivePrompt() {
+            const lastLine = document.createElement('div');
+            lastLine.id = 'active-line';
+            lastLine.className = 'line';
+            lastLine.innerHTML = `<span class="prompt">david-cockson@cloud:~$</span><span class="cursor"></span>`;
+            terminal.appendChild(lastLine);
+            terminal.scrollTo({ top: terminal.scrollHeight, behavior: 'smooth' });
+        }
 
+        let inputBuffer = "";
+        window.addEventListener("keydown", async (e) => {
+            if (e.key.length === 1) {
+                inputBuffer += e.key.toLowerCase();
+                if (inputBuffer.includes("frog")) {
+                    inputBuffer = "";
+                    const active = document.getElementById('active-line');
+                    if (active) active.remove();
+                    await typeLine({ 
+                        cmd: "cat guardian.log", 
+                        res: [
+                            `<pre>`,
+                            `  (o)---(o)`,
+                            `   ( . . )  [ STATUS: ACTIVE ]`,
+                            `    \\___/   [ AUTH: WIB ]`,
+                            `   /     \\`,
+                            `  |       |  Systems monitored. Wib verified.`,
+                            `</pre>`
+                        ]
+                    });
+                    addActivePrompt();
+                }
+                if (inputBuffer.length > 10) inputBuffer = inputBuffer.substring(1);
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', start);
+        window.onresize = () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; };
+    </script>
 </body>
 </html>
