@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
   <style>
     :root {
       --bg: #171720; --surface: #1e1f2b; --text: #c9d1d9;
@@ -18,7 +19,6 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body { background: var(--bg); color: var(--text); font-family: var(--sans); line-height: 1.7; -webkit-font-smoothing: antialiased; }
 
-    /* ── HEADER ── */
     .cv-header {
       position: relative; background: linear-gradient(135deg,#1e1f2b,#262838);
       padding: 5rem 2rem 4rem; text-align: center; overflow: hidden;
@@ -34,7 +34,6 @@
     .cv-header h1 { font-size:2.4rem; font-weight:800; letter-spacing:.15em; text-transform:uppercase; color:#fff; margin-bottom:.4rem; }
     .cv-header .tagline { font-family:var(--mono); font-size:.85rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); }
 
-    /* ── LINKS ── */
     .cv-links { padding:1.5rem 2rem 0; font-family:var(--mono); font-size:.82rem; color:var(--muted); max-width:960px; margin:0 auto; display:flex; flex-direction:column; gap:.3rem; }
     .cv-links .link-row { display:flex; align-items:baseline; gap:.5rem; }
     .cv-links a { color:var(--accent); text-decoration:none; }
@@ -42,10 +41,8 @@
     .cv-links .tree-child { padding-left:1.2rem; color:var(--muted); }
     .cv-links .link-spacer { margin-top:.4rem; }
 
-    /* ── BIO ── */
     .cv-bio { max-width:960px; margin:0 auto; padding:2.5rem 2rem 1.5rem; font-size:1.05rem; text-align:center; border-bottom:1px solid var(--border); }
 
-    /* ── LAYOUT ── */
     .cv-layout { display:flex; gap:2.5rem; max-width:960px; margin:0 auto; padding:0 2rem 4rem; }
     .cv-sidebar { width:210px; flex-shrink:0; padding-top:.5rem; }
     .cv-content { flex:1; min-width:0; }
@@ -91,161 +88,27 @@
     .cv-footer { text-align:center; padding:2rem; font-size:.8rem; color:var(--muted); border-top:1px solid var(--border); max-width:960px; margin:0 auto; }
     .cv-footer a { color:var(--accent); text-decoration:none; }
 
-    /* ── BUTTON ── */
     .pdf-btn-wrap { position:fixed; bottom:1.5rem; right:1.5rem; z-index:100; }
-    #pdf-btn { display:flex; align-items:center; gap:.5rem; background:var(--accent); color:#171720; border:none; border-radius:6px; padding:.65rem 1.1rem; font-family:var(--mono); font-size:.8rem; font-weight:600; letter-spacing:.05em; cursor:pointer; box-shadow:0 4px 16px rgba(100,210,200,.25); transition:background .15s,transform .1s; }
+    #pdf-btn { display:flex; align-items:center; gap:.5rem; background:var(--accent); color:#171720; text-decoration:none; border:none; border-radius:6px; padding:.65rem 1.1rem; font-family:var(--mono); font-size:.8rem; font-weight:600; letter-spacing:.05em; cursor:pointer; box-shadow:0 4px 16px rgba(100,210,200,.25); transition:background .15s,transform .1s; }
     #pdf-btn:hover { background:#7dddd5; transform:translateY(-1px); }
 
     @media (max-width:720px) {
       .cv-layout { flex-direction:column; padding:0 1.25rem 3rem; }
       .cv-sidebar { width:100%; border-bottom:1px solid var(--border); padding-bottom:1.5rem; margin-bottom:1.5rem; }
     }
-
-    /* ══════════════════════════════════════════════
-       PRINT / PDF STYLES
-       ══════════════════════════════════════════════ */
-    @media print {
-      @page {
-        size: A4;
-        margin: 14mm 16mm 14mm 16mm;
-      }
-
-      *, *::before, *::after { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-
-      body { background: #fff; color: #1a1a1a; font-size: 9.5pt; line-height: 1.5; }
-
-      .pdf-btn-wrap { display: none !important; }
-
-      /* Header — compact, no decorative grid */
-      .cv-header {
-        background: #1e1f2b !important;
-        padding: 1.8rem 1.5rem 1.4rem;
-      }
-      .cv-header::before { display: none; }
-      .cv-header::after { display: none; }
-      .cv-header h1 { font-size: 18pt; color: #fff; }
-      .cv-header .tagline { font-size: 7.5pt; color: #aaa; }
-
-      /* Links — inline row for print */
-      .cv-links {
-        padding: .6rem 0 0;
-        font-size: 7.5pt;
-        flex-direction: row;
-        flex-wrap: wrap;
-        gap: .2rem .8rem;
-      }
-      .cv-links .tree-child { display: none; }
-      .cv-links .link-spacer { margin-top: 0; }
-      .cv-links .link-desc { display: none; }
-      .cv-links a { color: #1a1a1a; text-decoration: underline; }
-
-      /* Bio */
-      .cv-bio {
-        padding: .8rem 0 .6rem;
-        font-size: 9.5pt;
-        border-bottom: 1px solid #ccc;
-      }
-
-      /* Layout */
-      .cv-layout { gap: 1.5rem; padding: 0 0 1rem; }
-      .cv-sidebar { width: 170px; }
-
-      /* Sidebar */
-      .sidebar-section-title {
-        color: #1a1a1a;
-        border-bottom-color: #ccc;
-        font-size: 7pt;
-        margin-top: 1rem;
-        margin-bottom: .4rem;
-      }
-      .sidebar-list li { font-size: 7.5pt; margin-bottom: .25rem; color: #333; }
-      .sidebar-list li::before { color: #555; }
-      .sidebar-list .badge-label { color: #555; font-size: 6.5pt; }
-      .sidebar-list .sidebar-dates { color: #666; font-size: 6.5pt; }
-      .sidebar-list strong { color: #1a1a1a; font-size: 7.5pt; }
-      .sidebar-compact li { font-size: 7pt; margin-bottom: .1rem; }
-
-      /* Section titles */
-      .cv-section-title {
-        color: #1a1a1a;
-        border-bottom-color: #ccc;
-        font-size: 10pt;
-        margin-top: 1.2rem;
-        margin-bottom: .6rem;
-      }
-      .cv-content .cv-section-title:first-child { margin-top: .3rem; }
-
-      /* Projects */
-      .project {
-        background: #f8f8f8;
-        border-color: #ddd;
-        padding: .5rem .8rem;
-        margin-bottom: .6rem;
-        page-break-inside: avoid;
-        break-inside: avoid;
-      }
-      .project-title { color: #1a1a1a; font-size: 9.5pt; }
-      .project li { font-size: 8.5pt; color: #333; }
-      .project li::before { color: #555; }
-      .project .maps-to { font-size: 7pt; color: #777; }
-      .project .maps-to span { color: #555; }
-
-      /* Experience */
-      .experience-item {
-        margin-bottom: 1rem;
-        page-break-inside: avoid;
-        break-inside: avoid;
-      }
-      .experience-item .role { color: #1a1a1a; font-size: 9.5pt; }
-      .experience-item .company { color: #333; }
-      .experience-item .dates { color: #666; font-size: 7.5pt; }
-      .experience-item li { font-size: 8.5pt; color: #333; }
-      .experience-item li::before { color: #555; }
-
-      /* Earlier roles */
-      .earlier-roles-title { color: #555; font-size: 8pt; }
-      .earlier-roles-list li { font-size: 8pt; }
-      .earlier-roles-list strong { color: #1a1a1a; }
-      .dates-inline { color: #666; font-size: 7pt; }
-      .role-summary { color: #555; font-size: 7.5pt; }
-
-      code {
-        background: #eee;
-        border-color: #ccc;
-        color: #333;
-      }
-
-      /* Footer */
-      .cv-footer {
-        border-top-color: #ccc;
-        font-size: 7pt;
-        padding: .8rem 0;
-      }
-      .cv-footer a { color: #1a1a1a; }
-
-      /* Prevent orphan sections */
-      .cv-section-title {
-        page-break-after: avoid;
-        break-after: avoid;
-      }
-      .earlier-roles-title {
-        page-break-after: avoid;
-        break-after: avoid;
-      }
-    }
   </style>
 </head>
 <body>
 
   <div class="pdf-btn-wrap">
-    <button id="pdf-btn" onclick="window.print()">
+    <a id="pdf-btn" href="david-cockson-cv.pdf" download="david-cockson-cv.pdf">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
         <polyline points="7 10 12 15 17 10"/>
         <line x1="12" y1="15" x2="12" y2="3"/>
       </svg>
-      Save as PDF
-    </button>
+      Download CV
+    </a>
   </div>
 
   <header class="cv-header">
@@ -314,7 +177,6 @@
       <div class="project"><h3 class="project-title">Terraform &amp; IaC</h3><ul><li>Runbook self-learning methodology: 4 reps completed, committed to pinned infra-practice repo</li><li>Progression: single EC2 → User Data + IAM + CloudWatch → ALB + HTTPS → full production stack (ASG + Launch Template) in a single <code>terraform apply</code></li><li>GCP Skills Boost badges (Terraform, Kubernetes, Google Cloud Network)</li></ul><p class="maps-to"><span>maps to →</span> Terraform, IaC, HCL, ALB, ASG, GCP exposure</p></div>
       <div class="project"><h3 class="project-title">Networking &amp; Access Control</h3><ul><li>Tailscale mesh networking across homelab, laptop, phone, and Contabo VPS</li><li>Nginx Proxy Manager as reverse proxy for all services</li><li>DNS management across multiple custom domains (Cloudflare)</li><li>Labelled physical network infrastructure with structured cabling and surge protection</li><li>Tailscale metrics proxy: custom Python service exposing network metrics to Prometheus</li></ul><p class="maps-to"><span>maps to →</span> networking, DNS, reverse proxy, VPN/zero-trust, infrastructure documentation</p></div>
       <div class="project"><h3 class="project-title">CI/CD &amp; Deployment Pipelines</h3><ul><li>Blog (Hugo): GitHub Actions → Cloudflare</li><li>Personal site: GitHub Actions deploy pipeline</li><li>Scarlet Helix: GitHub Actions → Cloudflare Workers</li><li>All projects use custom domains with DNS management</li></ul><p class="maps-to"><span>maps to →</span> CI/CD, GitHub Actions, deployment automation, DNS, Cloudflare</p></div>
-
       <div class="project"><h3 class="project-title">Volunteer — Geeks for Social Change (GFSC)</h3><ul><li>Infrastructure discovery: mapped an undocumented, distributed legacy server estate across Hetzner, Co-op Cloud, and Digital Ocean</li><li>Drafted initial observability strategy (Uptime Kuma → Node Exporter → Grafana Cloud) collaboratively in HedgeDoc</li><li>Iterated infrastructure review based on community maintainer feedback</li><li>First external contribution: committed final technical proposals and system documentation to the organisation's public GitHub repo</li></ul><p class="maps-to"><span>maps to →</span> infrastructure mapping, Git collaboration, technical documentation, systems discovery, open-source community</p></div>
 
       <h2 class="cv-section-title">Professional Experience</h2>
@@ -337,75 +199,6 @@
     <a href="https://davidcockson.com">davidcockson.com</a> · <a href="https://blog.davidcockson.com">blog.davidcockson.com</a> · <a href="https://github.com/davidcockson-compliance">github</a> · <a href="https://www.linkedin.com/in/david-cockson">linkedin</a>
   </footer>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script>
-    async function downloadPDF() {
-      if (typeof html2canvas === 'undefined' || typeof window.jspdf === 'undefined') {
-        window.print();
-        return;
-      }
-      const btn = document.getElementById('pdf-btn');
-      const btnWrap = btn.closest('.pdf-btn-wrap');
-      btn.disabled = true;
-      btn.textContent = 'Rendering…';
-      btnWrap.style.display = 'none';
-      await new Promise(r => setTimeout(r, 150));
-
-      try {
-        const renderWidth = 960;
-        const scaleFactor = 2;
-        const canvas = await html2canvas(document.body, {
-          scale: scaleFactor,
-          useCORS: true,
-          backgroundColor: '#171720',
-          logging: false,
-          scrollX: 0,
-          scrollY: 0,
-          windowWidth: renderWidth,
-          width: renderWidth,
-          height: document.body.scrollHeight,
-          windowHeight: document.body.scrollHeight
-        });
-
-        btn.textContent = 'Building PDF…';
-
-        const { jsPDF } = window.jspdf;
-        const pageW = 210;
-        const pageH = 297;
-        const pxPerMm = (renderWidth * scaleFactor) / pageW;
-        const imgW = canvas.width;
-        const imgH = canvas.height;
-        const pdfImgW = pageW;
-        const pdfImgH = (imgH / pxPerMm);
-        const totalPages = Math.ceil(pdfImgH / pageH);
-
-        const pdf = new jsPDF({ unit: 'mm', format: 'a4', orientation: 'portrait' });
-
-        for (let i = 0; i < totalPages; i++) {
-          if (i > 0) pdf.addPage();
-          const srcY = i * pageH * pxPerMm;
-          const sliceH = Math.min(pageH * pxPerMm, imgH - srcY);
-          const sliceCanvas = document.createElement('canvas');
-          sliceCanvas.width = imgW;
-          sliceCanvas.height = sliceH;
-          const ctx = sliceCanvas.getContext('2d');
-          ctx.drawImage(canvas, 0, srcY, imgW, sliceH, 0, 0, imgW, sliceH);
-          const sliceData = sliceCanvas.toDataURL('image/jpeg', 0.92);
-          const slicePageH = sliceH / pxPerMm;
-          pdf.addImage(sliceData, 'JPEG', 0, 0, pdfImgW, slicePageH);
-        }
-
-        pdf.save('david-cockson-cv.pdf');
-      } catch (e) {
-        alert('PDF error: ' + e.message);
-      }
-
-      btnWrap.style.display = 'block';
-      btn.disabled = false;
-      btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Save as PDF`;
-    }
-  </script>
 
 </body>
 </html>
