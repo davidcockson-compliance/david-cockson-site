@@ -17,13 +17,12 @@
 
   <style>
     :root {
-      /* Cloud Native Accessible Palette */
       --bg: #0b121f; 
       --surface: #161f30; 
       --text: #d1d9e6;
       --head: #ffffff; 
       --muted: #8892b0; 
-      --accent: #a6e22e; /* Unified Terminal Green */
+      --accent: #a6e22e; 
       --border: rgba(255, 255, 255, 0.08);
       --code-bg: #1e293b;
       --mono: 'JetBrains Mono', monospace;
@@ -32,7 +31,6 @@
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     
-    /* A11y Focus States */
     :focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 
     body { 
@@ -92,11 +90,30 @@
     .cv-bio { 
       max-width: 960px; 
       margin: 0 auto; 
-      padding: 2.5rem 2rem; 
-      font-size: 1.1rem; 
+      padding: 2.5rem 2rem 0.5rem; 
+      font-size: 1.05rem; 
       text-align: center; 
-      border-bottom: 1px solid var(--border);
       color: var(--text);
+      line-height: 1.7;
+    }
+
+    .jump-link {
+      text-align: center;
+      margin-bottom: 2rem;
+      font-family: var(--mono);
+      font-size: 0.75rem;
+    }
+    .jump-link a {
+      color: var(--muted);
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 4px;
+      opacity: 0.6;
+      transition: opacity 0.2s;
+    }
+    .jump-link a:hover {
+      opacity: 1;
+      color: var(--accent);
     }
 
     .cv-layout { 
@@ -104,9 +121,10 @@
       gap: 3rem; 
       max-width: 1000px; 
       margin: 0 auto; 
-      padding: 4rem 2rem; 
+      padding: 2rem 2rem 4rem; 
+      border-top: 1px solid var(--border);
     }
-    .cv-sidebar { width: 240px; flex-shrink: 0; }
+    .cv-sidebar { width: 260px; flex-shrink: 0; }
     .cv-content { flex: 1; min-width: 0; }
 
     .sidebar-section-title { 
@@ -145,6 +163,7 @@
       margin-bottom: 1.5rem; 
       padding-bottom: 0.6rem; 
       border-bottom: 1px solid var(--border); 
+      scroll-margin-top: 2rem;
     }
     .cv-content .cv-section-title:first-child { margin-top: 0; }
 
@@ -174,8 +193,9 @@
 
     .earlier-roles-title { font-size: 0.9rem; font-weight: 700; color: var(--muted); text-transform: uppercase; margin-top: 2rem; margin-bottom: 1rem; }
     .earlier-roles-list { list-style: none; }
-    .earlier-roles-list li { margin-bottom: 1.2rem; font-size: 0.95rem; }
-    .role-summary { font-size: 0.85rem; color: var(--muted); line-height: 1.6; margin-top: 0.3rem; }
+    .earlier-roles-list li { margin-bottom: 1.5rem; font-size: 0.95rem; }
+    .role-summary { font-size: 0.85rem; color: var(--muted); line-height: 1.6; margin-top: 0.4rem; display: block; }
+    .dates-inline { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); float: right; }
 
     code { font-family: var(--mono); font-size: 0.85em; background: var(--code-bg); padding: 0.2em 0.4em; border-radius: 4px; color: var(--accent); }
 
@@ -197,6 +217,7 @@
     @media (max-width: 768px) {
       .cv-layout { flex-direction: column; gap: 2rem; }
       .cv-sidebar { width: 100%; border-bottom: 1px solid var(--border); padding-bottom: 2rem; }
+      .dates-inline { float: none; display: block; margin-top: 0.2rem; }
     }
   </style>
 </head>
@@ -223,14 +244,18 @@
   <nav class="cv-links">
     <div class="link-row"><a href="https://davidcockson.com">davidcockson.com</a></div>
     <div class="link-row tree-child">├── <a href="https://blog.davidcockson.com">blog.davidcockson.com</a> <span class="link-desc">— technical blog</span></div>
-    <div class="link-row tree-child">├── <a href="https://lccp-filter.davidcockson.com/">lccp-filter.davidcockson.com</a> <span class="link-desc">— UKGC regulation filter tool</span></div>
+    <div class="link-row tree-child">├── <a href="https://1ccp-filter.davidcockson.com/">1ccp-filter.davidcockson.com</a> <span class="link-desc">— UKGC regulation filter tool</span></div>
     <div class="link-row tree-child">└── <a href="https://scarlet-helix.davidcockson.com/">scarlet-helix.davidcockson.com</a> <span class="link-desc">— UKGC licence CSV filter</span></div>
     <div class="link-row link-spacer"><a href="https://github.com/davidcockson-compliance">github.com/davidcockson-compliance</a></div>
     <div class="link-row"><a href="https://www.linkedin.com/in/david-cockson">linkedin.com/in/david-cockson</a></div>
   </nav>
 
   <div class="cv-bio">
-    Systems thinker. Finding constraints and designing controls. 8 years analysing complex regulatory systems | T-shaped Generalist | Cloud, Infrastructure &amp; AI Systems.
+    Systems thinker with a focus on identifying constraints and designing robust controls within complex environments. With 8 years of experience analyzing high-stakes regulatory systems (AML gambling and data protection), I bring a T-shaped generalist perspective to technical problem-solving. I am now applying this analytical rigor to hands-on engineering, building observable and resilient infrastructure across cloud and AI systems.
+  </div>
+
+  <div class="jump-link">
+    <a href="#professional-experience">Jump straight to Professional Experience</a>
   </div>
 
   <div class="cv-layout">
@@ -243,56 +268,200 @@
         <li><span class="badge-label">Google</span> Fundamentals of Digital Marketing</li>
         <li><span class="badge-label">Google</span> ADK Crash Course — Agent Development Kit</li>
       </ul>
+
       <h3 class="sidebar-section-title">Industry Qualifications</h3>
       <ul class="sidebar-list">
         <li>ICA Advanced Certificate in Regulatory Compliance</li>
         <li>ICA Specialist Certificate in Money Laundering Risk in Betting and Gaming</li>
         <li>Award in iGaming — MQF Level 4</li>
       </ul>
+
       <h3 class="sidebar-section-title">Education</h3>
       <ul class="sidebar-list">
         <li><strong>University of Huddersfield</strong><span class="sidebar-dates">2010–2013</span>Diploma in Law — tutoring, student representative, mooting society</li>
         <li><strong>Manchester Metropolitan University</strong><span class="sidebar-dates">2002–2005</span>Certificate of Education, Dept of Economics — student representative</li>
       </ul>
+
       <h3 class="sidebar-section-title">Training</h3>
       <ul class="sidebar-list" style="font-size:0.8rem">
-        <li>Anti-Money Laundering &amp; CTF</li><li>Anti-Bribery</li><li>Anti-Fraud &amp; Payments Handling</li><li>GDPR</li><li>LCCP</li><li>Remote Gambling — CMA Guide</li><li>Responsible Gaming</li><li>Swedish Regulatory Framework</li><li>CAP Responsible Ads: Gambling</li><li>ICC Ethical Marketing &amp; Advertising</li><li>Introduction to Blockchain</li><li>LivingWorks safeTALK</li><li>GamCare Motivational Interviewing</li><li>Betway LEAP Management Training</li>
+        <li>Anti-Money Laundering &amp; CTF</li>
+        <li>Anti-Bribery</li>
+        <li>Anti-Fraud &amp; Payments Handling</li>
+        <li>GDPR</li>
+        <li>LCCP</li>
+        <li>Remote Gambling — CMA Guide</li>
+        <li>Responsible Gaming</li>
+        <li>Swedish Regulatory Framework</li>
+        <li>CAP Responsible Ads: Gambling</li>
+        <li>ICC Ethical Marketing &amp; Advertising</li>
+        <li>Introduction to Blockchain</li>
+        <li>LivingWorks safeTALK</li>
+        <li>GamCare Motivational Interviewing</li>
+        <li>Betway LEAP Management Training</li>
       </ul>
-      <h3 class="sidebar-section-title">Community</h3>
+
+      <h3 class="sidebar-section-title">Community &amp; Volunteering</h3>
       <ul class="sidebar-list">
-        <li>Manchester tech meetups (Bet365, AI Data Hive/Matillion, Grafana/Autotrader)</li>
-        <li>GFSC volunteer contributor (governance framework, distributed ops)</li>
+        <li><strong>Tech Ecosystem:</strong> Active participant in the Manchester tech community, regularly attending engineering meetups (Bet365, AI Data Hive/Matillion, Grafana/Autotrader).</li>
+        <li><strong>Open Source Contributor:</strong> Volunteer contributor to the GFSC, focusing on governance frameworks and distributed operations.</li>
+        <li><strong>Emergency Rescue Operations (Malta):</strong> St John Rescue Corps water rescue training, including active lifeguard certification, RHIB (Rigid-Hulled Inflatable Boat) operations, and high-stress emergency triage.</li>
       </ul>
-      <h3 class="sidebar-section-title">Other</h3>
+
+      <h3 class="sidebar-section-title">Additional Projects &amp; Certifications</h3>
       <ul class="sidebar-list">
-        <li>Homelab: Proxmox host, 20+ Docker containers, Tailscale mesh</li>
-        <li>Photography (Darktable)</li>
+        <li><strong>Homelab Infrastructure:</strong> Administer a Proxmox virtualization host running 20+ Docker containers, securely routed via a Tailscale mesh network.</li>
+        <li><strong>Maritime &amp; Emergency Triage:</strong> STCW, RYA Sailing, and PADI certified. Formally trained in advanced first aid, emergency triage, and high-stress incident response in critical physical environments.</li>
+        <li><strong>Interests:</strong> Digital Photography (Darktable raw processing workflow).</li>
       </ul>
     </aside>
 
     <main class="cv-content">
       <h2 class="cv-section-title">Technical Projects</h2>
-      <div class="project"><h3 class="project-title">Monitoring &amp; Observability</h3><ul><li>Full stack: Telegraf → Prometheus → Grafana across homelab and Contabo VPS</li><li>Diagnosed silent cAdvisor failure (cgroup v2 + non-standard Docker root), pivoted to Telegraf Docker socket API</li><li>Published Grafana community dashboard (ID 25012)</li><li>Grafana Cloud setup (free tier, eu-west-2)</li><li>Multi-cloud monitoring: Prometheus + Node Exporter + Grafana deployed to Contabo VPS (Ubuntu 24.04, Germany)</li></ul><p class="maps-to"><span>maps to →</span> monitoring, observability, Prometheus, Grafana, incident diagnosis, multi-cloud</p></div>
-      <div class="project"><h3 class="project-title">Linux &amp; Containerisation</h3><ul><li>Proxmox hypervisor running Ubuntu VM with 20+ Docker containers</li><li>Services: Plex, Immich, Gitea, SearXNG, Nginx Proxy Manager, Portainer, Syncthing, and others</li><li>Multi-stage Docker builds (Node/Vite → nginx:alpine) for project deployments</li><li>systemd service authoring (Tailscale metrics proxy — Python HTTP proxy exposing client metrics to Prometheus)</li><li>Linux Mint as primary dev environment</li></ul><p class="maps-to"><span>maps to →</span> Linux, Docker, containerisation, virtualisation, systemd, process management</p></div>
-      <div class="project"><h3 class="project-title">Cloud Infrastructure</h3><ul><li>AWS: self-taught runbook methodology through 23 reps — click-ops → CLI → scripted automation → self-healing fleet (3 EC2 instances)</li><li>LCCP Regulation Filter deployed to EC2 (multi-stage Docker build: Node/Vite → nginx:alpine)</li><li>Contabo VPS: self-hosted AI stack (Ollama Qwen2.5 14B, Prometheus, Grafana, Syncthing) on Ubuntu 24.04, accessible via Tailscale mesh</li><li>Multi-provider experience: AWS, Contabo, Cloudflare, GCP Skills Boost</li></ul><p class="maps-to"><span>maps to →</span> AWS, EC2, CLI, multi-cloud, VPS management, cloud infrastructure</p></div>
-      <div class="project"><h3 class="project-title">Python Development</h3><ul><li>Code kata system: self-designed, multi-domain reps (AWS, Linux, networking) — same 7 concepts applied across 3 contexts per rep</li><li>ARN decoder script — committed to public repo</li><li>Discord server with 3 webhooks configured as alerting channel for monitoring stack</li><li>Scripting across homelab and cloud automation tasks</li><li>Google ADK (Agent Development Kit) crash course completed — AI agent framework</li></ul><p class="maps-to"><span>maps to →</span> Python, scripting, automation, webhooks, ChatOps, AI agents</p></div>
-      <div class="project"><h3 class="project-title">Terraform &amp; IaC</h3><ul><li>Runbook self-learning methodology: 4 reps completed, committed to pinned infra-practice repo</li><li>Progression: single EC2 → User Data + IAM + CloudWatch → ALB + HTTPS → full production stack (ASG + Launch Template) in a single <code>terraform apply</code></li><li>GCP Skills Boost badges (Terraform, Kubernetes, Google Cloud Network)</li></ul><p class="maps-to"><span>maps to →</span> Terraform, IaC, HCL, ALB, ASG, GCP exposure</p></div>
-      <div class="project"><h3 class="project-title">Networking &amp; Access Control</h3><ul><li>Tailscale mesh networking across homelab, laptop, phone, and Contabo VPS</li><li>Nginx Proxy Manager as reverse proxy for all services</li><li>DNS management across multiple custom domains (Cloudflare)</li><li>Labelled physical network infrastructure with structured cabling and surge protection</li><li>Tailscale metrics proxy: custom Python service exposing network metrics to Prometheus</li></ul><p class="maps-to"><span>maps to →</span> networking, DNS, reverse proxy, VPN/zero-trust, infrastructure documentation</p></div>
-      <div class="project"><h3 class="project-title">CI/CD &amp; Deployment Pipelines</h3><ul><li>Blog (Hugo): GitHub Actions → Cloudflare</li><li>Personal site: GitHub Actions deploy pipeline</li><li>Scarlet Helix: GitHub Actions → Cloudflare Workers</li><li>All projects use custom domains with DNS management</li></ul><p class="maps-to"><span>maps to →</span> CI/CD, GitHub Actions, deployment automation, DNS, Cloudflare</p></div>
-      <div class="project"><h3 class="project-title">Volunteer — Geeks for Social Change (GFSC)</h3><ul><li>Infrastructure discovery: mapped an undocumented, distributed legacy server estate across Hetzner, Co-op Cloud, and Digital Ocean</li><li>Drafted initial observability strategy (Uptime Kuma → Node Exporter → Grafana Cloud) collaboratively in HedgeDoc</li><li>Iterated infrastructure review based on community maintainer feedback</li><li>First external contribution: committed final technical proposals and system documentation to the organisation's public GitHub repo</li></ul><p class="maps-to"><span>maps to →</span> infrastructure mapping, Git collaboration, technical documentation, systems discovery, open-source community</p></div>
+      
+      <div class="project">
+        <h3 class="project-title">Monitoring &amp; Observability</h3>
+        <ul>
+          <li>Full stack: Telegraf → Prometheus → Grafana across homelab and Contabo VPS</li>
+          <li>Diagnosed silent cAdvisor failure (cgroup v2+ non-standard Docker root), pivoted to Telegraf Docker socket API</li>
+          <li>Published Grafana community dashboard (ID 25012)</li>
+          <li>Grafana Cloud setup (free tier, eu-west-2)</li>
+          <li>Multi-cloud monitoring: Prometheus + Node Exporter + Grafana deployed to Contabo VPS (Ubuntu 24.04, Germany)</li>
+        </ul>
+        <p class="maps-to"><span>maps to →</span> monitoring, observability, Prometheus, Grafana, incident diagnosis, multi-cloud</p>
+      </div>
 
-      <h2 class="cv-section-title">Professional Experience</h2>
-      <div class="experience-item"><p class="role">Compliance Manager — <span class="company">Gambling Commission of Great Britain</span></p><p class="dates">July 2024 – Present</p><ul><li>Assessment of regulated gambling companies including casinos, betting shops, bingo, AGCs (in-person) and remote casinos, sportsbooks, bingo and B2B software development companies (online)</li><li>Led all 2025 Software Development Licence assessments, including ISO 27001 reviews, Change Management evaluations, policy and procedure assessments, and governance interviews with C-level executives (CTO/CEO), Heads of Departments and SMEs</li><li>Directed multiple successful regulatory actions in response to event-driven work based on incident reports; leading and advising on assessments triggered by sensitive whistleblowing and intelligence reports</li><li>Support Policy teams on technical projects and reactive workstreams, managing high-stakes intelligence and whistleblower disclosures</li><li>Utilise Microsoft Copilot, SharePoint and proprietary software to streamline regulatory reporting and maintain audit trails for complex assessment workflows</li></ul></div>
-      <div class="experience-item"><p class="role">Regulatory Compliance Assurance Manager — <span class="company">William Hill (888 Holdings)</span></p><p class="dates">May 2023 – December 2023</p><ul><li>Recruited, trained and directed an Assurance team across Marketing Compliance, Technical Compliance and VIP/HVC schemes for 3 business units (UK &amp; Ireland, International, US) spanning 22 regulated markets</li><li>Established procedural frameworks and authored the Risk Matrix for the Group Assurance department; planned and executed all non-AML and SG assurance testing for 2023</li><li>Coordinated operations for a 5-person international data and monitoring team and a 19-person testing team (Manila), providing task allocation and performance feedback</li><li>Integrated Assurance into group regulatory and controls mapping with external entities including KPMG; authored the framework and supported delivery of RTS testing framework automation and the GB annual assurance statement</li><li>Developed and delivered specialist training (Assurance Testing, GB Regulatory Actions, 3rd Party Risk Analysis, Marketing Compliance)</li></ul></div>
-      <div class="experience-item"><p class="role">Compliance Officer — <span class="company">Allwyn UK (National Lottery)</span></p><p class="dates">September 2022 – March 2023</p><ul><li>Created Business Requirement Documents (BRDs) and provided compliance reviews for commercial and operations teams, including workshops with the outgoing licensee</li><li>Led the design and build of the Compliance Monitoring Programme and control registers</li><li>Advised Marketing, Retail and Product Development teams on technical implementation and regulatory alignment as a Subject Matter Expert</li><li>Managed high-stakes relationships with Scientific Games and coordinated international Net Zero initiatives</li><li>Led a joint Machine Learning development project with Oxford University, overseeing the bridge between academic research and commercial application</li></ul></div>
+      <div class="project">
+        <h3 class="project-title">Linux &amp; Containerisation</h3>
+        <ul>
+          <li>Proxmox hypervisor running Ubuntu VM with 20+ Docker containers</li>
+          <li>Services: Plex, Immich, Gitea, SearXNG, Nginx Proxy Manager, Portainer, Syncthing</li>
+          <li>Multi-stage Docker builds (Node/Vite → nginx:alpine) for project deployments</li>
+          <li>systemd service authoring (Tailscale metrics proxy — Python HTTP proxy exposing client metrics to Prometheus)</li>
+          <li>Linux Mint as primary dev environment</li>
+        </ul>
+        <p class="maps-to"><span>maps to →</span> Linux, Docker, containerisation, virtualisation, systemd, process management</p>
+      </div>
+
+      <div class="project">
+        <h3 class="project-title">Cloud Infrastructure</h3>
+        <ul>
+          <li>AWS: self-taught runbook methodology through 23 reps — click-ops → CLI → scripted automation → self-healing fleet (3 EC2 instances)</li>
+          <li>LCCP Regulation Filter deployed to EC2 (multi-stage Docker build: Node/Vite → nginx:alpine)</li>
+          <li>Contabo VPS: self-hosted AI stack (Ollama Qwen2.5 14B, Prometheus, Grafana, Syncthing) on Ubuntu 24.04, accessible via Tailscale mesh</li>
+          <li>Multi-provider experience: AWS, Contabo, Cloudflare, GCP Skills Boost</li>
+        </ul>
+        <p class="maps-to"><span>maps to →</span> AWS, EC2, CLI, multi-cloud, VPS management, cloud infrastructure</p>
+      </div>
+
+      <div class="project">
+        <h3 class="project-title">Python Development</h3>
+        <ul>
+          <li>Code kata system: self-designed, multi-domain reps (AWS, Linux, networking) — same 7 concepts applied across 3 contexts per rep</li>
+          <li>ARN decoder script — committed to public repo</li>
+          <li>Discord server with 3 webhooks configured as alerting channel for monitoring stack</li>
+          <li>Scripting across homelab and cloud automation tasks</li>
+          <li>Google ADK (Agent Development Kit) crash course completed — AI agent framework</li>
+        </ul>
+        <p class="maps-to"><span>maps to →</span> Python, scripting, automation, webhooks, ChatOps, AI agents</p>
+      </div>
+
+      <div class="project">
+        <h3 class="project-title">Terraform &amp; IaC</h3>
+        <ul>
+          <li>Runbook self-learning methodology: 4 reps completed, committed to pinned infra-practice repo</li>
+          <li>Progression: single EC2 → User Data + IAM + CloudWatch → ALB + HTTPS → full production stack (ASG + Launch Template) in a single <code>terraform apply</code></li>
+          <li>GCP Skills Boost badges (Terraform, Kubernetes, Google Cloud Network)</li>
+        </ul>
+        <p class="maps-to"><span>maps to →</span> Terraform, IaC, HCL, ALB, ASG, GCP exposure</p>
+      </div>
+
+      <div class="project">
+        <h3 class="project-title">Networking &amp; Access Control</h3>
+        <ul>
+          <li>Tailscale mesh networking across homelab, laptop, phone, and Contabo VPS</li>
+          <li>Nginx Proxy Manager as reverse proxy for all services</li>
+          <li>DNS management across multiple custom domains (Cloudflare)</li>
+          <li>Labelled physical network infrastructure with structured cabling and surge protection</li>
+          <li>Tailscale metrics proxy: custom Python service exposing network metrics to Prometheus</li>
+        </ul>
+        <p class="maps-to"><span>maps to →</span> networking, DNS, reverse proxy, VPN/zero-trust, infrastructure documentation</p>
+      </div>
+
+      <div class="project">
+        <h3 class="project-title">Volunteer — Geeks for Social Change (GFSC)</h3>
+        <ul>
+          <li>Drafted initial observability strategy (Uptime Kuma → Node Exporter → Grafana Cloud) collaboratively in HedgeDoc</li>
+          <li>Iterated infrastructure review based on community maintainer feedback</li>
+          <li>First external contribution: committed final technical proposals and system documentation to the organisation's public GitHub repo</li>
+        </ul>
+        <p class="maps-to"><span>maps to →</span> infrastructure mapping, Git collaboration, technical documentation, systems discovery, open-source community</p>
+      </div>
+
+      <h2 id="professional-experience" class="cv-section-title">Professional Experience</h2>
+      
+      <div class="experience-item">
+        <p class="role">Compliance Manager — <span class="company">Gambling Commission of Great Britain</span></p>
+        <p class="dates">July 2024 – Present</p>
+        <ul>
+          <li>Assessment of regulated gambling companies including casinos, betting shops, bingo, AGCs (in-person) and remote casinos, sportsbooks, bingo and B2B software development companies (online)</li>
+          <li>Led all 2025 Software Development Licence assessments, including ISO 27001 reviews, Change Management evaluations, policy and procedure assessments, and governance interviews with C-level executives (CTO/CEO), Heads of Departments and SMEs</li>
+          <li>Managed end-to-end incident response—from real-time triage to root-cause investigation—for complex software failures. Evaluated active incident reports and sensitive disclosures, gathered critical system context, and escalated high-severity findings to executive committees to enforce necessary technical remediations.</li>
+          <li>Supported cross-functional technical initiatives and unplanned operational workstreams, managing highly sensitive data escalations and critical internal risk disclosures.</li>
+          <li>Utilise Microsoft Copilot, SharePoint and proprietary software to streamline regulatory reporting and maintain audit trails for complex assessment workflows</li>
+        </ul>
+      </div>
+
+      <div class="experience-item">
+        <p class="role">Regulatory Compliance Assurance Manager — <span class="company">William Hill (888 Holdings)</span></p>
+        <p class="dates">May 2023 – December 2023</p>
+        <ul>
+          <li>Recruited, trained and directed an Assurance team across Marketing Compliance, Technical Compliance and VIP/HVC schemes for 3 business units (UK & Ireland, International, US) spanning 22 regulated markets</li>
+          <li>Established procedural frameworks and authored the Risk Matrix for the Group Assurance department; planned and executed all non-AML and SG assurance testing for 2023</li>
+          <li>Coordinated operations for a 5-person international data and monitoring team and a 19-person testing team (Manila), providing task allocation and performance feedback</li>
+          <li>Integrated Assurance into group regulatory and controls mapping with external entities including KPMG; authored the framework and supported delivery of RTS testing framework automation and the GB annual assurance statement</li>
+          <li>Developed and delivered specialist training (Assurance Testing, GB Regulatory Actions, 3rd Party Risk Analysis, Marketing Compliance)</li>
+        </ul>
+      </div>
+
+      <div class="experience-item">
+        <p class="role">Compliance Officer — <span class="company">Allwyn UK (National Lottery)</span></p>
+        <p class="dates">September 2022 – March 2023</p>
+        <ul>
+          <li>Authored technical Business Requirement Documents (BRDs) and facilitated critical operational handover workshops with legacy service providers.</li>
+          <li>Architected and deployed the foundational system monitoring frameworks and operational control registers for the platform transition.</li>
+          <li>Advised Marketing, Retail and Product Development teams on technical implementation and regulatory alignment as a Subject Matter Expert</li>
+          <li>Managed tier-one technology vendor relationships (Scientific Games) and coordinated international infrastructure efficiency (Net Zero) initiatives.</li>
+          <li>Directed a joint Machine Learning development project with Oxford University, bridging the gap between academic AI models and commercial product deployment.</li>
+        </ul>
+      </div>
 
       <h3 class="earlier-roles-title">Previous Roles</h3>
       <ul class="earlier-roles-list">
-        <li><strong>Regional Regulatory Compliance Manager</strong> — Betway Group <span class="dates-inline">Nov 2021 – Apr 2022</span><br><span class="role-summary">Managed 4 Compliance Managers across MGA, Belgium, Germany and NL. Built risk register, compliance monitoring, board reporting. Recruited and trained new staff.</span></li>
-        <li><strong>Marketing Compliance Analyst</strong> — Pokerstars (Flutter International) <span class="dates-inline">Nov 2020 – Jul 2021</span><br><span class="role-summary">Marketing compliance across 15+ regulated markets, 3 gaming verticals. Created guidance, training and regulatory risk matrices.</span></li>
-        <li><strong>Compliance Officer</strong> — Genesis Global Limited <span class="dates-inline">Dec 2018 – Nov 2020</span><br><span class="role-summary">Licence applications, casino launches, compliance monitoring development, gap analysis, regulatory reporting automation. Previously Risk, Payment &amp; Fraud Analyst.</span></li>
-        <li><strong>Legal &amp; Compliance Officer</strong> — PlayAttack Affiliates <span class="dates-inline">Jul – Sep 2021</span><br><span class="role-summary">Marketing compliance across Sweden, MGA and Romania. Affiliate monitoring, licence applications, UKGC onboarding.</span></li>
-        <li><strong>Case Handler</strong> — HSBC (PPI &amp; PBA Departments) <span class="dates-inline">Aug 2013 – Aug 2017</span><br><span class="role-summary">Complaint investigation, documentation review across proprietary systems, procedure improvement, colleague training.</span></li>
+        <li>
+          <strong>Regional Regulatory Compliance Manager</strong> | Betway Group 
+          <span class="dates-inline">(Nov 2021 – Apr 2022)</span>
+          <span class="role-summary">Led cross-organizational incident response on a partner platform (West Ham), mitigating risk by analyzing third-party access logs to confirm zero public exposure. Managed an international team of 4, driving time-critical operational shifts—including rapid documentation overhauls and emergency resource mobilization to the Netherlands—to unblock strict licensing deadlines and ensure business continuity.</span>
+        </li>
+        <li>
+          <strong>Marketing Compliance Analyst</strong> — Pokerstars (Flutter International) 
+          <span class="dates-inline">Nov 2020 – Jul 2021</span>
+          <span class="role-summary">Marketing compliance across 15+ regulated markets, 3 gaming verticals. Created guidance, training and regulatory risk matrices.</span>
+        </li>
+        <li>
+          <strong>Compliance Officer</strong> — Genesis Global Limited 
+          <span class="dates-inline">Dec 2018 – Nov 2020</span>
+          <span class="role-summary">Managed emergency remediation following a mandated operational suspension and severe external review. Executed rapid gap analysis and rebuilt critical monitoring frameworks, achieving the second-fastest operational reinstatement on record—and the fastest historically for an escalation of that severity. Additionally drove new platform launches and regulatory reporting automation. (Previously Risk, Payment & Fraud Analyst).</span>
+        </li>
+        <li>
+          <strong>Legal & Compliance Officer</strong> — PlayAttack Affiliates 
+          <span class="dates-inline">Jul – Sep 2021</span>
+          <span class="role-summary">Marketing compliance across Sweden, MGA and Romania. Affiliate monitoring, licence applications, UKGC onboarding.</span>
+        </li>
+        <li>
+          <strong>Case Handler</strong> — HSBC (PPI & PBA Departments) 
+          <span class="dates-inline">Aug 2013 – Aug 2017</span>
+          <span class="role-summary">Complaint investigation, documentation review across proprietary systems, procedure improvement, colleague training.</span>
+        </li>
       </ul>
     </main>
   </div>
